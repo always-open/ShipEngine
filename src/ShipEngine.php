@@ -342,7 +342,6 @@ class ShipEngine
         }
 
         return $response;
-
     }
 
     /**
@@ -467,9 +466,10 @@ class ShipEngine
     private function shipmentsToObjects(array $shipments) : array
     {
         $shipment_objects = [];
-        foreach ($shipments AS $shipment) {
+        foreach ($shipments as $shipment) {
             $shipment_objects[] = new Shipment($shipment);
         }
+
         return $shipment_objects;
     }
 }

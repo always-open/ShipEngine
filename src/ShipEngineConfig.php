@@ -82,11 +82,11 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
     public function jsonSerialize() : array
     {
         return [
-            'apiKey'   => $this->apiKey,
-            'baseUrl'  => $this->baseUrl,
+            'apiKey' => $this->apiKey,
+            'baseUrl' => $this->baseUrl,
             'pageSize' => $this->pageSize,
-            'retries'  => $this->retries,
-            'timeout'  => $this->timeout->s,
+            'retries' => $this->retries,
+            'timeout' => $this->timeout->s,
             'asObject' => $this->asObject,
         ];
     }
@@ -99,11 +99,11 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
     public function toArray()
     {
         return [
-            'apiKey'   => $this->apiKey,
-            'baseUrl'  => $this->baseUrl,
+            'apiKey' => $this->apiKey,
+            'baseUrl' => $this->baseUrl,
             'pageSize' => $this->pageSize,
-            'retries'  => $this->retries,
-            'timeout'  => $this->timeout,
+            'retries' => $this->retries,
+            'timeout' => $this->timeout,
             'asObject' => $this->asObject,
         ];
     }
