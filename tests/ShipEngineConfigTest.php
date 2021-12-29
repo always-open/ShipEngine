@@ -1,11 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace BluefynInternational\ShipEngine\Tests;
 
 use BluefynInternational\ShipEngine\Message\ShipEngineException;
 use BluefynInternational\ShipEngine\Message\TimeoutException;
 use BluefynInternational\ShipEngine\Message\ValidationException;
-use BluefynInternational\ShipEngine\ShipEngine;
 use BluefynInternational\ShipEngine\ShipEngineConfig;
 use DateInterval;
 use Mockery;
@@ -24,8 +23,6 @@ use Orchestra\Testbench\TestCase as Orchestra;
  */
 final class ShipEngineConfigTest extends Orchestra
 {
-    private static ShipEngineConfig $config;
-
     private static string $test_url;
 
     protected function setUp(): void
@@ -147,62 +144,6 @@ final class ShipEngineConfigTest extends Orchestra
         }
     }
 
-    // public function testEmptyAPIKeyInMethodCall(): void
-    // {
-    //     try {
-    //         self::$shipengine->validateAddress(self::$goodAddress, array('apiKey' => ''));
-    //     } catch (ValidationException $e) {
-    //         $error = $e->jsonSerialize();
-    //         $this->assertInstanceOf(ValidationException::class, $e);
-    //         $this->assertNull($error['requestId']);
-    //         $this->assertEquals('shipengine', $error['source']);
-    //         $this->assertEquals('validation', $error['type']);
-    //         $this->assertEquals('field_value_required', $error['errorCode']);
-    //         $this->assertEquals(
-    //             'A ShipEngine API key must be specified.',
-    //             $error['message']
-    //         );
-    //     }
-    // }
-
-    // public function testInvalidRetriesInMethodCall(): void
-    // {
-    //     try {
-    //         self::$shipengine->validateAddress(self::$goodAddress, array('retries' => -7));
-    //     } catch (ValidationException $e) {
-    //         $error = $e->jsonSerialize();
-    //         $this->assertInstanceOf(ValidationException::class, $e);
-    //         $this->assertNull($error['requestId']);
-    //         $this->assertEquals('shipengine', $error['source']);
-    //         $this->assertEquals('validation', $error['type']);
-    //         $this->assertEquals('invalid_field_value', $error['errorCode']);
-    //         $this->assertEquals(
-    //             'Retries must be zero or greater.',
-    //             $error['message']
-    //         );
-    //     }
-    // }
-
-    // public function testInvalidTimeoutInMethodCall(): void
-    // {
-    //     try {
-    //         $di = new DateInterval('PT7S');
-    //         $di->invert = 1;
-    //         self::$shipengine->validateAddress(self::$goodAddress, array('timeout' => $di));
-    //     } catch (ValidationException $e) {
-    //         $error = $e->jsonSerialize();
-    //         $this->assertInstanceOf(ValidationException::class, $e);
-    //         $this->assertNull($error['requestId']);
-    //         $this->assertEquals('shipengine', $error['source']);
-    //         $this->assertEquals('validation', $error['type']);
-    //         $this->assertEquals('invalid_field_value', $error['errorCode']);
-    //         $this->assertEquals(
-    //             'Timeout must be greater than zero.',
-    //             $error['message']
-    //         );
-    //     }
-    // }
-
     public function testMergeApiKey(): void
     {
         $config = new ShipEngineConfig(
@@ -287,214 +228,6 @@ final class ShipEngineConfigTest extends Orchestra
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['timeout'], $new_config->timeout);
     }
-
-    // public function testConfigWithRetriesDisabled(): void
-    // {
-    //     try {
-    //         $address429 = new Address(
-    //             array(
-    //                 'street' => array(
-    //                     '429 Rate Limit Error'
-    //                 ),
-    //                 'cityLocality' => 'Boston',
-    //                 'stateProvince' => 'MA',
-    //                 'postalCode' => '02215',
-    //                 'countryCode' => 'US',
-    //             )
-    //         );
-    //         $shipengine = new ShipEngine(
-    //             array(
-    //                 'apiKey' => 'baz',
-    //                 'baseUrl' => self::$test_url,
-    //                 'pageSize' => 75,
-    //                 'retries' => 0,
-    //                 'timeout' => new DateInterval('PT15S'),
-    //             )
-    //         );
-    //         $shipengine->validateAddress($address429);
-    //     } catch (ShipEngineException $err) {
-    //         $this->assertionsOn429Exception($err, RateLimitExceededException::class);
-
-    //         $eventResult = [];
-
-    //         $this->assertEquals(0, $eventResult[0]->retry);
-    //         $this->assertEquals(0, $eventResult[1]->retry);
-    //         $this->assertEquals($eventResult[0]->retry, $eventResult[1]->retry);
-    //     }
-    // }
-
-    // public function testConfigRetryOnceByDefault(): void
-    // {
-    //     try {
-    //         $address429 = new Address(
-    //             array(
-    //                 'street' => array(
-    //                     '429 Rate Limit Error'
-    //                 ),
-    //                 'cityLocality' => 'Boston',
-    //                 'stateProvince' => 'MA',
-    //                 'postalCode' => '02215',
-    //                 'countryCode' => 'US',
-    //             )
-    //         );
-    //         $shipengine = new ShipEngine(
-    //             array(
-    //                 'apiKey' => 'baz',
-    //                 'baseUrl' => self::$test_url,
-    //                 'pageSize' => 75,
-    //                 'timeout' => new DateInterval('PT15S'),
-    //             )
-    //         );
-    //         $shipengine->validateAddress($address429);
-    //     } catch (ShipEngineException $err) {
-    //         $this->assertionsOn429Exception($err, RateLimitExceededException::class);
-
-    //         $requestEventResult = [];
-    //         $responseEventResult = [];
-
-    //         $this->assertEquals(0, $requestEventResult[0]->retry);
-    //         $this->assertEquals(0, $responseEventResult[0]->retry);
-
-    //         $this->assertEquals(1, $requestEventResult[1]->retry);
-    //         $this->assertEquals(1, $responseEventResult[1]->retry);
-    //     }
-    // }
-
-    // public function testConfigWithCustomRetries(): void
-    // {
-    //     try {
-    //         $address429 = new Address(
-    //             array(
-    //                 'street' => array(
-    //                     '429 Rate Limit Error'
-    //                 ),
-    //                 'cityLocality' => 'Boston',
-    //                 'stateProvince' => 'MA',
-    //                 'postalCode' => '02215',
-    //                 'countryCode' => 'US',
-    //             )
-    //         );
-    //         $shipengine = new ShipEngine(
-    //             array(
-    //                 'apiKey' => 'baz',
-    //                 'baseUrl' => self::$test_url,
-    //                 'pageSize' => 75,
-    //                 'retries' => 3,
-    //                 'timeout' => new DateInterval('PT15S'),
-    //             )
-    //         );
-    //         $shipengine->validateAddress($address429);
-    //     } catch (ShipEngineException $err) {
-    //         $this->assertionsOn429Exception($err, RateLimitExceededException::class);
-
-    //         $requestEventResult = [];
-    //         $responseEventResult = [];
-
-    //         $this->assertEquals(0, $requestEventResult[0]->retry);
-    //         $this->assertEquals(0, $responseEventResult[0]->retry);
-
-    //         $this->assertEquals(1, $requestEventResult[1]->retry);
-    //         $this->assertEquals(1, $responseEventResult[1]->retry);
-
-    //         $this->assertEquals(2, $requestEventResult[2]->retry);
-    //         $this->assertEquals(2, $responseEventResult[2]->retry);
-
-    //         $this->assertEquals(3, $requestEventResult[3]->retry);
-    //         $this->assertEquals(3, $responseEventResult[3]->retry);
-    //     }
-    // }
-
-    // public function testTimeoutExceptionWhenRetryGreaterThanTimeout(): void
-    // {
-    //     $config = array(
-    //         'apiKey' => 'baz',
-    //         'baseUrl' => self::$test_url,
-    //         'pageSize' => 75,
-    //         'retries' => 0,
-    //         'timeout' => new DateInterval('PT2S'),
-    //     );
-
-    //     try {
-    //         $address429 = new Address(
-    //             array(
-    //                 'street' => array(
-    //                     '429 Rate Limit Error'
-    //                 ),
-    //                 'cityLocality' => 'Boston',
-    //                 'stateProvince' => 'MA',
-    //                 'postalCode' => '02215',
-    //                 'countryCode' => 'US',
-    //             )
-    //         );
-    //         $shipengine = new ShipEngine($config);
-    //         $shipengine->validateAddress($address429);
-    //     } catch (ShipEngineException $err) {
-    //         $this->assertionsOnTimeoutException($err, $config['timeout']->s);
-
-    //         $eventResult = [];
-    //         $spy->shouldHaveReceived('onRequestSent')
-    //             ->withArgs(
-    //                 function ($event) use (&$eventResult) {
-    //                     if ($event instanceof RequestSentEvent) {
-    //                         $eventResult[] = $event;
-    //                         return true;
-    //                     }
-    //                     return false;
-    //                 }
-    //             )->once();
-
-    //         $spy->shouldHaveReceived('onResponseReceived')
-    //             ->withArgs(
-    //                 function ($event) use (&$eventResult) {
-    //                     if ($event instanceof ResponseReceivedEvent) {
-    //                         $eventResult[] = $event;
-    //                         return true;
-    //                     }
-    //                     return false;
-    //                 }
-    //             )->once();
-    //         $this->assertEquals(0, $eventResult[0]->retry);
-    //         $this->assertEquals(0, $eventResult[1]->retry);
-    //         $this->assertEquals($eventResult[0]->retry, $eventResult[1]->retry);
-    //         $this->assertEquals(2, $eventResult[0]->timeout->s);
-    //     }
-    // }
-
-    // public function testConfigRetryWaitsCorrectAmountOfTime(): void
-    // {
-    //     $testStartTime = new DateTime();
-    //     $config = array(
-    //         'apiKey' => 'baz',
-    //         'baseUrl' => self::$test_url,
-    //         'pageSize' => 75,
-    //         'retries' => 1,
-    //         'timeout' => new DateInterval('PT10S'),
-    //     );
-
-    //     try {
-    //         $address429 = new Address(
-    //             array(
-    //                 'street' => array(
-    //                     '429 Rate Limit Error'
-    //                 ),
-    //                 'cityLocality' => 'Boston',
-    //                 'stateProvince' => 'MA',
-    //                 'postalCode' => '02215',
-    //                 'countryCode' => 'US',
-    //             )
-    //         );
-    //         $shipengine = new ShipEngine($config);
-    //         $shipengine->validateAddress($address429);
-    //     } catch (ShipEngineException $err) {
-    //         $this->assertionsOn429Exception($err, RateLimitExceededException::class);
-
-    //         $requestEventResult = [];
-    //         $responseEventResult = [];
-
-    //         $this->assertEqualsWithDelta($testStartTime, new DateTime(), 5);
-    //         $this->assertEqualsWithDelta($requestEventResult[0]->timestamp, $requestEventResult[1]->timestamp, 5);
-    //     }
-    // }
 
     public function assertionsOn429Exception(ShipEngineException $err, string $errorClass): void
     {

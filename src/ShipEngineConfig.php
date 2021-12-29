@@ -2,111 +2,45 @@
 
 namespace BluefynInternational\ShipEngine;
 
-use BluefynInternational\ShipEngine\Message\ValidationException;
 use BluefynInternational\ShipEngine\Util\Assert;
 use DateInterval;
+use Illuminate\Contracts\Support\Arrayable;
 
-/**
- * Class ShipEngineConfig - This is the configuration object for the ShipEngine object and it's properties are
- * used throughout this SDK.
- *
- * @package ShipEngine
- */
-final class ShipEngineConfig implements \JsonSerializable
+final class ShipEngineConfig implements \JsonSerializable, Arrayable
 {
-    /**
-     * The default base uri for the ShipEngineClient.
-     */
     public const DEFAULT_BASE_URI = 'https://api.shipengine.com/';
 
-    /**
-     * Default page size for responses from ShipEngine API.
-     */
     public const DEFAULT_PAGE_SIZE = 50;
 
-    /**
-     * Default number of retries the ShipEngineClient should make before returning an exception.
-     */
     public const DEFAULT_RETRIES = 1;
 
-    /**
-     * Default timeout for the ShipEngineClient in seconds as a **DateInterval**.
-     */
     public const DEFAULT_TIMEOUT = 'PT10S';
 
-
-    /**
-     * A ShipEngine API Key, sandbox API Keys start with **TEST_**.
-     *
-     * @var string
-     */
     public string $apiKey;
 
-    /**
-     * The configured base uri for the ShipEngineClient.
-     *
-     * @var string
-     */
     public string $baseUrl;
 
-    /**
-     * Configured page size for responses from ShipEngine API.
-     *
-     * @var int
-     */
     public int $pageSize;
 
-    /**
-     * Configured number of retries the ShipEngineClient should make before returning an exception.
-     *
-     * @var int
-     */
     public int $retries;
 
-    /**
-     * Configured timeout for the ShipEngineClient in seconds as a **DateInterval**.
-     *
-     * @var DateInterval
-     */
     public DateInterval $timeout;
 
     /**
-     * ShipEngineConfig constructor.
-     *
-     * @param array $config {apiKey:string, baseUrl:string, pageSize:int,
-     * retries:int, timeout:DateInterval}
+     * @param array $config [apiKey:string, baseUrl:string, pageSize:int, retries:int, timeout:DateInterval]
      */
     public function __construct(array $config = [])
     {
         $assert = new Assert();
-        $assert->isApiKeyValid($config);
-        $this->apiKey = $config['apiKey'];
+        $api_key = $config['apiKey'] ?? config('shipengine.credentials.key');
+        $assert->isApiKeyValid($api_key);
+        $this->apiKey = $api_key;
 
-
-        $retries = $config['retries'] ?? self::DEFAULT_RETRIES;
-        if ($retries < 0) {
-            throw new ValidationException(
-                'Retries must be zero or greater.',
-                null,
-                'shipengine',
-                'validation',
-                'invalid_field_value'
-            );
-        }
-
+        $retries = $config['retries'] ?? config('shipengine.retries') ?? self::DEFAULT_RETRIES;
+        $assert->isRetriesValid($retries);
         $this->retries = $retries;
 
         $timeout = $config['timeout'] ?? new DateInterval(self::DEFAULT_TIMEOUT);
-        if (! $timeout instanceof DateInterval) {
-            throw new ValidationException(
-                'Timeout is not a DateInterval.',
-                null,
-                'shipengine',
-                'validation',
-                'invalid_field_value'
-            );
-        }
-
         $assert->isTimeoutValid($timeout);
         $this->timeout = $timeout;
 
@@ -117,22 +51,21 @@ final class ShipEngineConfig implements \JsonSerializable
     /**
      * Merge in method level config into the global config used by the **ShipEngine** object.
      *
-     * @param array|null $newConfig
+     * @param array|ShipEngineConfig|null $newConfig
+     *
      * @return $this
      */
-    public function merge(array|null $newConfig = null): ShipEngineConfig
+    public function merge(array|ShipEngineConfig|null $newConfig = null): ShipEngineConfig
     {
-        if (! isset($newConfig)) {
+        if ($newConfig instanceof ShipEngineConfig) {
+            $newConfig = $newConfig->toArray();
+        }
+
+        if (empty($newConfig)) {
             return $this;
         }
 
-        $config = [];
-
-        $config['apiKey'] = $newConfig['apiKey'] ?? $this->apiKey;
-        $config['baseUrl'] = $newConfig['baseUrl'] ?? $this->baseUrl;
-        $config['pageSize'] = $newConfig['pageSize'] ?? $this->pageSize;
-        $config['retries'] = $newConfig['retries'] ?? $this->retries;
-        $config['timeout'] = $newConfig['timeout'] ?? $this->timeout;
+        $config = array_merge($this->toArray(), $newConfig);
 
         return new ShipEngineConfig($config);
     }
@@ -145,16 +78,27 @@ final class ShipEngineConfig implements \JsonSerializable
     public function jsonSerialize() : array
     {
         return [
-          'apiKey' => $this->apiKey,
-          'baseUrl' => $this->baseUrl,
+          'apiKey'   => $this->apiKey,
+          'baseUrl'  => $this->baseUrl,
           'pageSize' => $this->pageSize,
-          'retries' => $this->retries,
-          'timeout' => $this->timeout->s,
+          'retries'  => $this->retries,
+          'timeout'  => $this->timeout->s,
         ];
     }
 
     public static function getBaseUri() : string
     {
         return config('shipengine.endpoint.base') ?? self::DEFAULT_BASE_URI;
+    }
+
+    public function toArray()
+    {
+        return [
+            'apiKey'   => $this->apiKey,
+            'baseUrl'  => $this->baseUrl,
+            'pageSize' => $this->pageSize,
+            'retries'  => $this->retries,
+            'timeout'  => $this->timeout,
+        ];
     }
 }
