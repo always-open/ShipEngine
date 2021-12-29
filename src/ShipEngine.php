@@ -463,6 +463,9 @@ class ShipEngine
         );
     }
 
+    /**
+     * @throws UnknownProperties
+     */
     private function shipmentsToObjects(array $shipments) : array
     {
         $shipment_objects = [];
