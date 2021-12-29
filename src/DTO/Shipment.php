@@ -14,9 +14,9 @@ class Shipment extends DataTransferObject
 {
     #[Regex('/^se(-[a-z0-9]+)+$/')]
     public string $shipment_id;
-    #[Regex('/^se(-[a-z0-9]+)+$/')]
-    public string $carrier_id;
-    public string $service_code;
+    #[Regex('/^se(-[a-z0-9]+)+$/', allowNull: true)]
+    public string|null $carrier_id;
+    public string|null $service_code;
     public string|null $external_order_id;
     /** @var ShipmentItem[] */
     #[CastWith(ArrayCaster::class, itemType: ShipmentItem::class)]
@@ -25,7 +25,7 @@ class Shipment extends DataTransferObject
     #[CastWith(ArrayCaster::class, itemType: ShipmentTaxIdentifier::class)]
     public array|null $tax_identifiers;
     #[MaxLength(50)]
-    public string $external_shipment_id;
+    public string|null $external_shipment_id;
     #[Regex('/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[-+]\d{2}:\d{2}))?$/')]
     public string $ship_date;
     #[Regex('/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[-+]\d{2}:\d{2}))?$/')]
@@ -41,7 +41,7 @@ class Shipment extends DataTransferObject
     public ShipmentAddress $return_to;
     #[InArray(['none', 'delivery', 'signature', 'adult_signature', 'direct_signature', 'delivery_mailed', 'verbal_confirmation'])]
     public string $confirmation;
-    public ShipmentCustoms $customs;
+    public ShipmentCustoms|null $customs;
     public ShipmentAdvancedOptions $advanced_options;
     #[InArray(['pickup', 'drop_off'])]
     public string|null $origin_type;
@@ -51,7 +51,9 @@ class Shipment extends DataTransferObject
     #[CastWith(ArrayCaster::class, itemType: Tag::class)]
     public array $tags;
     #[InArray(OrderSource::ALL_SOURCES)]
-    public string $order_source_code;
+    public string|null $order_source_code;
+    /** @var Package[] */
+    #[CastWith(ArrayCaster::class, itemType: Package::class)]
     public array $packages;
     public Weight $total_weight;
 }

@@ -24,6 +24,8 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
 
     public int $retries;
 
+    public bool $asObject = false;
+
     public DateInterval $timeout;
 
     /**
@@ -43,6 +45,8 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
         $timeout = $config['timeout'] ?? new DateInterval(self::DEFAULT_TIMEOUT);
         $assert->isTimeoutValid($timeout);
         $this->timeout = $timeout;
+
+        $this->asObject = boolval($config['asObject'] ?? false);
 
         $this->baseUrl = $config['baseUrl'] ?? self::getBaseUri();
         $this->pageSize = $config['pageSize'] ?? self::DEFAULT_PAGE_SIZE;
@@ -78,11 +82,12 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
     public function jsonSerialize() : array
     {
         return [
-          'apiKey'   => $this->apiKey,
-          'baseUrl'  => $this->baseUrl,
-          'pageSize' => $this->pageSize,
-          'retries'  => $this->retries,
-          'timeout'  => $this->timeout->s,
+            'apiKey'   => $this->apiKey,
+            'baseUrl'  => $this->baseUrl,
+            'pageSize' => $this->pageSize,
+            'retries'  => $this->retries,
+            'timeout'  => $this->timeout->s,
+            'asObject' => $this->asObject,
         ];
     }
 
@@ -99,6 +104,7 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
             'pageSize' => $this->pageSize,
             'retries'  => $this->retries,
             'timeout'  => $this->timeout,
+            'asObject' => $this->asObject,
         ];
     }
 }

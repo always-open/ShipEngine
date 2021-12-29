@@ -11,8 +11,8 @@ class ShipmentAddress extends DataTransferObject
 {
     #[MinLength(1)]
     public string $name;
-    #[MinLength(1)]
-    public string $phone;
+    #[MinLength(1, allowNull: true)]
+    public string|null $phone;
     public string|null $company_name;
     #[MinLength(1)]
     public string $address_line1;

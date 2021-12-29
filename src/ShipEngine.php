@@ -2,7 +2,9 @@
 
 namespace BluefynInternational\ShipEngine;
 
+use BluefynInternational\ShipEngine\DTO\Shipment;
 use GuzzleHttp\Exception\GuzzleException;
+use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class ShipEngine
 {
@@ -211,9 +213,10 @@ class ShipEngine
      * @param array|null $params
      * @param array|ShipEngineConfig|null $config
      *
-     * @return array
+     * @return array ['shipments' => Shipment[]]
      *
      * @throws GuzzleException
+     * @throws UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/list_shipments
      */
@@ -221,11 +224,18 @@ class ShipEngine
         array|null $params = null,
         array|ShipEngineConfig $config = null,
     ) : array {
-        return ShipEngineClient::get(
+        $config = $this->config->merge($config);
+        $response = ShipEngineClient::get(
             'shipments',
             $this->config->merge($config),
             $params,
         );
+
+        if ($config->asObject && ! empty($response['shipments'])) {
+            $response['shipments'] = $this->shipmentsToObjects($response['shipments']);
+        }
+
+        return $response;
     }
 
     /**
@@ -242,31 +252,47 @@ class ShipEngine
         array|null $params = null,
         array|ShipEngineConfig $config = null,
     ) : array {
-        return ShipEngineClient::post(
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::post(
             'shipments',
-            $this->config->merge($config),
+            $config,
             $params,
         );
+
+        if (! $response['has_errors'] && $config->asObject) {
+            $response['shipments'] = $this->shipmentsToObjects($response['shipments']);
+        }
+
+        return $response;
     }
 
     /**
      * @param string $external_id
      * @param array|ShipEngineConfig|null $config
      *
-     * @return array
+     * @return array|Shipment
      *
      * @throws GuzzleException
+     * @throws UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/get_shipment_by_external_id
      */
     public function getShipmentByExternalID(
         string $external_id,
         array|ShipEngineConfig $config = null,
-    ) : array {
-        return ShipEngineClient::get(
+    ) : array|Shipment {
+        $config = $this->config->merge($config);
+        $response = ShipEngineClient::get(
             "shipments/external_shipment_id/$external_id",
-            $this->config->merge($config),
+            $config,
         );
+
+        if ($config->asObject) {
+            return new Shipment($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -293,20 +319,30 @@ class ShipEngine
      * @param string $id
      * @param array|ShipEngineConfig|null $config
      *
-     * @return array
+     * @return array|Shipment
      *
      * @throws GuzzleException
+     * @throws UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/get_shipment_by_id
      */
     public function getShipmentById(
         string $id,
         array|ShipEngineConfig $config = null,
-    ) : array {
-        return ShipEngineClient::get(
+    ) : array|Shipment {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::get(
             "shipments/$id",
-            $this->config->merge($config),
+            $config,
         );
+
+        if ($config->asObject) {
+            return new Shipment($response);
+        }
+
+        return $response;
+
     }
 
     /**
@@ -314,9 +350,10 @@ class ShipEngine
      * @param array $params
      * @param array|ShipEngineConfig|null $config
      *
-     * @return array
+     * @return array|Shipment
      *
      * @throws GuzzleException
+     * @throws UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/update_shipment
      */
@@ -324,12 +361,20 @@ class ShipEngine
         string $id,
         array $params,
         array|ShipEngineConfig $config = null,
-    ) : array {
-        return ShipEngineClient::put(
+    ) : array|Shipment {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::put(
             "shipments/$id",
             $this->config->merge($config),
             $params,
         );
+
+        if ($config->asObject) {
+            return new Shipment($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -417,5 +462,14 @@ class ShipEngine
             "shipments/$id/tags/$tag_name",
             $this->config->merge($config),
         );
+    }
+
+    private function shipmentsToObjects(array $shipments) : array
+    {
+        $shipment_objects = [];
+        foreach ($shipments AS $shipment) {
+            $shipment_objects[] = new Shipment($shipment);
+        }
+        return $shipment_objects;
     }
 }
