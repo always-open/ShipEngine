@@ -90,6 +90,7 @@ class ShipEngineClient
         for ($retry = 0; $retry <= $config->retries; $retry++) {
             try {
                 $apiResponse = self::sendRequest($method, $path, $params, $config);
+
                 break;
             } catch (\RuntimeException $err) {
                 if ($retry < $config->retries &&
@@ -104,6 +105,7 @@ class ShipEngineClient
                 }
             }
         }
+
         return $apiResponse;
     }
 
@@ -126,17 +128,17 @@ class ShipEngineClient
         ?array $params,
         ShipEngineConfig $config
     ): array {
-        $requestHeaders = array(
+        $requestHeaders = [
             'api-key' => $config->apiKey,
             'User-Agent' => self::deriveUserAgent(),
             'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        );
+            'Accept' => 'application/json',
+        ];
 
         $client = new Client([
                 'base_uri' => $config->baseUrl,
                 'timeout' => $config->timeout,
-                'max_retry_attempts' => $config->retries
+                'max_retry_attempts' => $config->retries,
             ]);
 
         $api_version = config('shipengine.endpoint.version', 'v1');
@@ -171,7 +173,6 @@ class ShipEngineClient
         return self::handleResponse($parsedResponse);
     }
 
-
     /**
      * Handles the response from ShipEngine API.
      *
@@ -180,7 +181,7 @@ class ShipEngineClient
      */
     private static function handleResponse(array $response): array
     {
-        if (!isset($response['errors']) || (count($response['errors']) == 0)) {
+        if (! isset($response['errors']) || (count($response['errors']) == 0)) {
             return $response;
         }
 

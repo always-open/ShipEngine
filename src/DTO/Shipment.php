@@ -4,11 +4,11 @@ namespace BluefynInternational\ShipEngine\DTO;
 
 use BluefynInternational\ShipEngine\DTO\Validators\InArray;
 use BluefynInternational\ShipEngine\DTO\Validators\MaxLength;
+use BluefynInternational\ShipEngine\DTO\Validators\Regex;
 use BluefynInternational\ShipEngine\Util\Constants\OrderSource;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
 use Spatie\DataTransferObject\DataTransferObject;
-use BluefynInternational\ShipEngine\DTO\Validators\Regex;
 
 class Shipment extends DataTransferObject
 {

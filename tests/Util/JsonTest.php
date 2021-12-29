@@ -2,9 +2,9 @@
 
 namespace BluefynInternational\ShipEngine\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
-
 use BluefynInternational\ShipEngine\Util\Json;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \BluefynInternational\ShipEngine\Util\JSON::encode
@@ -24,7 +24,7 @@ final class JsonTest extends TestCase
 
     public function testEncodeArray(): void
     {
-        $foos = array(new Foo(), new Foo());
+        $foos = [new Foo(), new Foo()];
 
         $json_string = Json::encodeArray($foos, ['0', 'zero']);
 

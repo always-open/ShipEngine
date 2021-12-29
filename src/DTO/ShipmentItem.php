@@ -2,10 +2,10 @@
 
 namespace BluefynInternational\ShipEngine\DTO;
 
+use BluefynInternational\ShipEngine\DTO\Validators\GreaterThanOrEquals;
 use BluefynInternational\ShipEngine\DTO\Validators\InArray;
 use BluefynInternational\ShipEngine\Util\Constants\OrderSource;
 use Spatie\DataTransferObject\DataTransferObject;
-use BluefynInternational\ShipEngine\DTO\Validators\GreaterThanOrEquals;
 
 class ShipmentItem extends DataTransferObject
 {

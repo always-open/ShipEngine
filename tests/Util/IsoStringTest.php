@@ -2,9 +2,9 @@
 
 namespace BluefynInternational\ShipEngine\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
-
 use BluefynInternational\ShipEngine\Util\IsoString;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \BluefynInternational\ShipEngine\Util\IsoString

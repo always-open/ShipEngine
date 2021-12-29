@@ -2,8 +2,8 @@
 
 namespace BluefynInternational\ShipEngine\Tests\DTO;
 
-use PHPUnit\Framework\TestCase;
 use BluefynInternational\ShipEngine\DTO\Shipment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \BluefynInternational\ShipEngine\DTO\Shipment

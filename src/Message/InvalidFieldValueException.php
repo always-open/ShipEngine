@@ -2,9 +2,6 @@
 
 namespace BluefynInternational\ShipEngine\Message;
 
-use BluefynInternational\ShipEngine\Util\Constants\ErrorCode;
-use BluefynInternational\ShipEngine\Util\Constants\ErrorType;
-
 /**
  * This error occurs when a field has been set to an invalid value.
  */

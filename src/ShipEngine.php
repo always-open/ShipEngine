@@ -30,7 +30,7 @@ class ShipEngine
     public function __construct(array|string|null $config = null)
     {
         $this->config = new ShipEngineConfig(
-            is_string($config) ? array('apiKey' => $config) : $config
+            is_string($config) ? ['apiKey' => $config] : $config
         );
     }
 

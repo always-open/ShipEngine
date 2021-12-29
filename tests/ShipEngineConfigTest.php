@@ -44,13 +44,13 @@ final class ShipEngineConfigTest extends Orchestra
     {
         try {
             new ShipEngineConfig(
-                array(
+                [
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
                     'timeout' => new DateInterval('PT15S'),
-                    'events' => null
-                )
+                    'events' => null,
+                ]
             );
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
@@ -70,14 +70,14 @@ final class ShipEngineConfigTest extends Orchestra
     {
         try {
             new ShipEngineConfig(
-                array(
+                [
                     'apiKey' => '',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
                     'timeout' => new DateInterval('PT15S'),
-                    'events' => null
-                )
+                    'events' => null,
+                ]
             );
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
@@ -97,14 +97,14 @@ final class ShipEngineConfigTest extends Orchestra
     {
         try {
             new ShipEngineConfig(
-                array(
+                [
                     'apiKey' => 'baz',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => -7,
                     'timeout' => new DateInterval('PT15S'),
-                    'events' => null
-                )
+                    'events' => null,
+                ]
             );
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
@@ -124,14 +124,14 @@ final class ShipEngineConfigTest extends Orchestra
     {
         try {
             new ShipEngineConfig(
-                array(
+                [
                     'apiKey' => 'baz',
                     'baseUrl' => self::$test_url,
                     'pageSize' => 75,
                     'retries' => 7,
                     'timeout' => new DateInterval('PT0S'),
-                    'events' => null
-                )
+                    'events' => null,
+                ]
             );
         } catch (ValidationException $e) {
             $error = $e->jsonSerialize();
@@ -206,16 +206,16 @@ final class ShipEngineConfigTest extends Orchestra
     public function testMergeApiKey(): void
     {
         $config = new ShipEngineConfig(
-            array(
+            [
                 'apiKey' => 'baz',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new DateInterval('PT15S'),
-                'events' => null
-            )
+                'events' => null,
+            ]
         );
-        $update_config = array('apiKey' => 'foo');
+        $update_config = ['apiKey' => 'foo'];
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['apiKey'], $new_config->apiKey);
     }
@@ -223,16 +223,16 @@ final class ShipEngineConfigTest extends Orchestra
     public function testMergeBaseUrl(): void
     {
         $config = new ShipEngineConfig(
-            array(
+            [
                 'apiKey' => 'baz',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new DateInterval('PT15S'),
-                'events' => null
-            )
+                'events' => null,
+            ]
         );
-        $update_config = array('baseUrl' => 'https://google.com/');
+        $update_config = ['baseUrl' => 'https://google.com/'];
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['baseUrl'], $new_config->baseUrl);
     }
@@ -240,16 +240,16 @@ final class ShipEngineConfigTest extends Orchestra
     public function testMergePageSize(): void
     {
         $config = new ShipEngineConfig(
-            array(
+            [
                 'apiKey' => 'baz',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new DateInterval('PT15S'),
-                'events' => null
-            )
+                'events' => null,
+            ]
         );
-        $update_config = array('pageSize' => 50);
+        $update_config = ['pageSize' => 50];
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['pageSize'], $new_config->pageSize);
     }
@@ -257,16 +257,16 @@ final class ShipEngineConfigTest extends Orchestra
     public function testMergeRetries(): void
     {
         $config = new ShipEngineConfig(
-            array(
+            [
                 'apiKey' => 'baz',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new DateInterval('PT15S'),
-                'events' => null
-            )
+                'events' => null,
+            ]
         );
-        $update_config = array('retries' => 1);
+        $update_config = ['retries' => 1];
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['retries'], $new_config->retries);
     }
@@ -274,16 +274,16 @@ final class ShipEngineConfigTest extends Orchestra
     public function testMergeTimeout(): void
     {
         $config = new ShipEngineConfig(
-            array(
+            [
                 'apiKey' => 'baz',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 7,
                 'timeout' => new DateInterval('PT15S'),
-                'events' => null
-            )
+                'events' => null,
+            ]
         );
-        $update_config = array('timeout' => new DateInterval('PT25S'));
+        $update_config = ['timeout' => new DateInterval('PT25S')];
         $new_config = $config->merge($update_config);
         $this->assertEquals($update_config['timeout'], $new_config->timeout);
     }
@@ -533,13 +533,13 @@ final class ShipEngineConfigTest extends Orchestra
     public function testJsonSerialize(): void
     {
         $se_config = new ShipEngineConfig(
-            array(
+            [
                 'apiKey' => 'baz',
                 'baseUrl' => self::$test_url,
                 'pageSize' => 75,
                 'retries' => 1,
-                'timeout' => new DateInterval('PT10S')
-            )
+                'timeout' => new DateInterval('PT10S'),
+            ]
         );
         $this->assertJson(json_encode($se_config));
     }

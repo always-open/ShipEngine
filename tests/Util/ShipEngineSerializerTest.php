@@ -22,13 +22,13 @@ final class ShipEngineSerializerTest extends TestCase
     public function testSerializeDataToJson(): void
     {
         $serializer = new ShipEngineSerializer();
-        $arr = array(
-            'street' => array('4 Jersey St', 'Ste 200', '2nd Floor'),
+        $arr = [
+            'street' => ['4 Jersey St', 'Ste 200', '2nd Floor'],
             'cityLocality' => 'Boston',
             'stateProvince' => 'MA',
             'postalCode' => '02215',
             'countryCode' => 'US',
-        );
+        ];
 
         $json = $serializer->serializeDataToJson($arr);
         $this->assertJson($json);

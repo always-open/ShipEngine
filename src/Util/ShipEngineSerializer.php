@@ -58,6 +58,7 @@ final class ShipEngineSerializer
     public function serializeDataToType($php_object, string $target_class): mixed
     {
         $json = $this->serializeDataToJson($php_object);
+
         return $this->deserializeJsonToType($json, $target_class);
     }
 
