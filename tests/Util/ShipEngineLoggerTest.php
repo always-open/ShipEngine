@@ -2,9 +2,9 @@
 
 namespace BluefynInternational\ShipEngine\Tests\Util;
 
-use Psr\Log\LoggerInterface;
 use BluefynInternational\ShipEngine\Util\ShipEngineLogger;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class ShipEngineLoggerTest

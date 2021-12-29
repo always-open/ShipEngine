@@ -2,8 +2,8 @@
 
 namespace BluefynInternational\ShipEngine\Util;
 
-use DateInterval;
 use BluefynInternational\ShipEngine\Message\ValidationException;
+use DateInterval;
 
 /**
  * Class Assert

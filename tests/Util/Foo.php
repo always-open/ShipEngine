@@ -13,6 +13,6 @@ final class Foo implements \JsonSerializable
     #[\ReturnTypeWillChange]
     public function jsonSerialize() : array
     {
-        return array('0' => 0, '1' => 1);
+        return ['0' => 0, '1' => 1];
     }
 }

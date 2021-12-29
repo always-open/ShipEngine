@@ -2,9 +2,9 @@
 
 namespace BluefynInternational\ShipEngine\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
-
 use BluefynInternational\ShipEngine\Util\Arr;
+
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \BluefynInternational\ShipEngine\Util\Arr::flatten
@@ -14,11 +14,11 @@ final class ArrTest extends TestCase
 {
     public function testFlatten(): void
     {
-        $old = array(
-            array(1),
-            array(2),
-            array(3)
-        );
+        $old = [
+            [1],
+            [2],
+            [3],
+        ];
 
         $new = Arr::flatten($old);
 
@@ -28,11 +28,11 @@ final class ArrTest extends TestCase
     
     public function testSubArray(): void
     {
-        $old = array(
+        $old = [
             'one' => 1,
             'two' => 2,
-            'three' => 3
-        );
+            'three' => 3,
+        ];
 
         $new = Arr::subArray($old, 'one', 'two');
         

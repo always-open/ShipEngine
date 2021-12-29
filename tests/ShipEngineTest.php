@@ -2,8 +2,8 @@
 
 namespace BluefynInternational\ShipEngine\Tests;
 
-use Orchestra\Testbench\TestCase as Orchestra;
 use BluefynInternational\ShipEngine\ShipEngine;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
  * @covers \BluefynInternational\ShipEngine\ShipEngineConfig

@@ -97,7 +97,7 @@ class ShipEngineException extends \RuntimeException implements \JsonSerializable
             'type' => $this->type,
             'errorCode' => $this->errorCode,
             'message' => $this->message,
-            'url' => $this->url
+            'url' => $this->url,
         ];
     }
 }

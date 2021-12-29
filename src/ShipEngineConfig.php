@@ -2,9 +2,9 @@
 
 namespace BluefynInternational\ShipEngine;
 
-use DateInterval;
 use BluefynInternational\ShipEngine\Message\ValidationException;
 use BluefynInternational\ShipEngine\Util\Assert;
+use DateInterval;
 
 /**
  * Class ShipEngineConfig - This is the configuration object for the ShipEngine object and it's properties are
@@ -122,7 +122,7 @@ final class ShipEngineConfig implements \JsonSerializable
      */
     public function merge(array|null $newConfig = null): ShipEngineConfig
     {
-        if (!isset($newConfig)) {
+        if (! isset($newConfig)) {
             return $this;
         }
 
@@ -149,7 +149,7 @@ final class ShipEngineConfig implements \JsonSerializable
           'baseUrl' => $this->baseUrl,
           'pageSize' => $this->pageSize,
           'retries' => $this->retries,
-          'timeout' => $this->timeout->s
+          'timeout' => $this->timeout->s,
         ];
     }
 

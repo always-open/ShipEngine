@@ -2,8 +2,6 @@
 
 namespace BluefynInternational\ShipEngine\DTO;
 
-use Spatie\DataTransferObject\Attributes\CastWith;
-use Spatie\DataTransferObject\Casters\ArrayCaster;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class ShipmentCustoms extends DataTransferObject
