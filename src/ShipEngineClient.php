@@ -9,16 +9,9 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 
-/**
- * A wrapped `REST` HTTP client to send HTTP requests from the SDK.
- *
- * @package ShipEngine
- */
-final class ShipEngineClient
+class ShipEngineClient
 {
     /**
-     * Implement a GET request and return output
-     *
      * @param string $path
      * @param ShipEngineConfig $config
      * @param array|null $params
