@@ -1,11 +1,11 @@
 <?php
 
-namespace Bluefyn International\ShipEngine\Facades;
+namespace BluefynInternational\ShipEngine\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Bluefyn International\ShipEngine\ShipEngine
+ * @see \BluefynInternational\ShipEngine\ShipEngine
  */
 class ShipEngine extends Facade
 {

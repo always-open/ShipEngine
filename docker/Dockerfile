@@ -1,25 +1,13 @@
 FROM arm64v8/php:8.1-fpm
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
-    libzip-dev \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip
-
-# GET Node from source
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install nodejs -y
+RUN apt-get update && apt-get install -y curl
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip fileinfo sockets
+RUN docker-php-ext-install mbstring
 
 # Optionally install XDebug
 ARG WITH_XDEBUG=false

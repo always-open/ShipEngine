@@ -3,6 +3,8 @@
     "description": "Wrapper around ShipEngine API",
     "keywords": [
         "Bluefyn International",
+        "BluefynInternational",
+        "Bluefyn-International",
         "laravel",
         "shipengine"
     ],
@@ -10,17 +12,23 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Bluefyn International",
+            "name": "BluefynInternational",
             "email": "quentin.schmick@nathanjames.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.0|^8.1",
+        "guzzlehttp/guzzle": "^7.4",
+        "illuminate/contracts": "^8.73",
+        "illuminate/support": "^8.77",
+        "spatie/data-transfer-object": "^3.7",
         "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^8.73"
+        "symfony/property-access": "^6.0",
+        "symfony/serializer": "^6.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.1",
         "nunomaduro/collision": "^5.10",
         "nunomaduro/larastan": "^1.0",
         "orchestra/testbench": "^6.22",
@@ -34,13 +42,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Bluefyn International\\ShipEngine\\": "src",
-            "Bluefyn International\\ShipEngine\\Database\\Factories\\": "database/factories"
+            "BluefynInternational\\ShipEngine\\": "src",
+            "BluefynInternational\\ShipEngine\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Bluefyn International\\ShipEngine\\Tests\\": "tests"
+            "BluefynInternational\\ShipEngine\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -58,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Bluefyn International\\ShipEngine\\ShipEngineServiceProvider"
+                "BluefynInternational\\ShipEngine\\ShipEngineServiceProvider"
             ],
             "aliases": {
-                "ShipEngine": "Bluefyn International\\ShipEngine\\Facades\\ShipEngine"
+                "ShipEngine": "BluefynInternational\\ShipEngine\\Facades\\ShipEngine"
             }
         }
     },
