@@ -7,7 +7,7 @@ use DateInterval;
 
 final class Assert
 {
-    public function isApiKeyValid(string $apiKey): void
+    public function isApiKeyValid(string|null $apiKey): void
     {
         if (empty($apiKey)) {
             throw new ValidationException(

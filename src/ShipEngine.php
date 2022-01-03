@@ -23,17 +23,15 @@ class ShipEngine
     public ShipEngineConfig $config;
 
     /**
-     * Instantiates the ShipEngine class. The `apiKey` you pass in can be either
-     * a ShipEngine sandbox or production API Key. (sandbox keys start with "TEST_)
-     *
-     * @param array|string|null $config Can be either a string that is your `apiKey` or an `array` {apiKey:string,
-     * baseUrl:string, pageSize:int, retries:int, timeout:int, eventListener:object}
+     * @param array|ShipEngineConfig|null $config [apiKey:string, baseUrl:string, pageSize:int, retries:int, timeout:int, eventListener:object]
      */
-    public function __construct(array|string|null $config = null)
+    public function __construct(array|ShipEngineConfig|null $config = null)
     {
-        $this->config = new ShipEngineConfig(
-            is_string($config) ? ['apiKey' => $config] : $config
-        );
+        if (is_array($config)) {
+            $config = new ShipEngineConfig($config);
+        }
+
+        $this->config = $config;
     }
 
     /**
