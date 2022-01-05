@@ -11,7 +11,6 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class Label extends DataTransferObject
 {
-
     #[Regex('/^se(-[a-z0-9]+)+$/')]
     public string $label_id;
     #[InArray(['processing', 'completed', 'error', 'voided'])]
@@ -51,5 +50,4 @@ class Label extends DataTransferObject
     public FormDownload|null $insurance_claim;
     #[CastWith(ArrayCaster::class, itemType: Package::class)]
     public array $packages;
-
 }
