@@ -6,6 +6,7 @@ use BluefynInternational\ShipEngine\DTO\Label;
 use BluefynInternational\ShipEngine\DTO\Shipment;
 use BluefynInternational\ShipEngine\DTO\TrackingInformation;
 use BluefynInternational\ShipEngine\DTO\VoidLabel;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -27,6 +28,8 @@ class ShipEngine
 
     /**
      * @param array|ShipEngineConfig|null $config [apiKey:string, baseUrl:string, pageSize:int, retries:int, timeout:int, eventListener:object]
+     *
+     * @throws Exception
      */
     public function __construct(array|ShipEngineConfig|null $config = null)
     {
@@ -46,7 +49,7 @@ class ShipEngine
      * @return array An array of **CarrierAccount** objects that correspond the to carrier accounts connected
      * to a given ShipEngine account.
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function listCarriers(array|ShipEngineConfig|null $config = null): array
     {
@@ -69,7 +72,7 @@ class ShipEngine
      * @return array An array of Address objects that correspond the to carrier accounts connected
      * to a given ShipEngine account.
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function validateAddresses(array $params, array|ShipEngineConfig|null $config = null): array
     {
@@ -82,7 +85,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/list_labels
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function listLabels(
         array $params = [],
@@ -105,7 +108,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/create_label
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function purchaseLabel(
         array $params,
@@ -114,7 +117,7 @@ class ShipEngine
         $config = $this->config->merge($config);
         $response = ShipEngineClient::post(
             'labels',
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -127,7 +130,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/get_label_by_external_shipment_id
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function getLabelByExternalShipmentId(
         string $externalShipmentId,
@@ -138,7 +141,7 @@ class ShipEngine
 
         $response = ShipEngineClient::get(
             "labels/external_shipment_id/{$externalShipmentId}",
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -151,7 +154,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_rate
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function purchaseLabelWithRateId(
         string $rateId,
@@ -162,7 +165,7 @@ class ShipEngine
 
         $response = ShipEngineClient::post(
             "labels/rates/{$rateId}",
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -175,7 +178,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_shipment
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function purchaseLabelWithShipmentId(
         string $shipmentId,
@@ -186,7 +189,7 @@ class ShipEngine
 
         $response = ShipEngineClient::post(
             "labels/shipment/{$shipmentId}",
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -199,7 +202,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/get_label_by_id
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function getLabelById(
         string $labelId,
@@ -210,7 +213,7 @@ class ShipEngine
 
         $response = ShipEngineClient::get(
             "labels/{$labelId}",
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -223,7 +226,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/create_return_label
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function createReturnLabel(
         string $labelId,
@@ -234,7 +237,7 @@ class ShipEngine
 
         $response = ShipEngineClient::post(
             "labels/{$labelId}/return",
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -247,7 +250,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/get_tracking_log_from_label
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function getLabelTrackingInformation(
         string $labelId,
@@ -257,7 +260,7 @@ class ShipEngine
 
         $response = ShipEngineClient::get(
             "labels/{$labelId}/return",
-            $this->config->merge($config),
+            $config,
         );
 
         if ($config->asObject) {
@@ -269,7 +272,7 @@ class ShipEngine
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/void_label
-     * @throws GuzzleException|UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      */
     public function voidLabelById(
         string $labelId,
@@ -279,7 +282,7 @@ class ShipEngine
 
         $response = ShipEngineClient::put(
             "labels/{$labelId}/void",
-            $this->config->merge($config),
+            $config,
         );
 
         if ($config->asObject) {
@@ -301,7 +304,7 @@ class ShipEngine
      *
      * @return array A label that correspond the to shipment details for a rate id
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function createLabelFromRate(
         string $rateId,
@@ -325,7 +328,7 @@ class ShipEngine
      *
      * @return array A label that correspond the to shipment details
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function createLabelFromShipmentDetails(array $params, array|ShipEngineConfig|null $config = null): array
     {
@@ -346,7 +349,7 @@ class ShipEngine
      *
      * @return array A voided label approval and message
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function voidLabelWithLabelId(string $labelId, array|ShipEngineConfig|null $config = null): array
     {
@@ -366,7 +369,7 @@ class ShipEngine
      *
      * @return array An array of Rate objects that correspond to the rate options and shipment details.
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function getRatesWithShipmentDetails(array $params, array|ShipEngineConfig|null $config = null): array
     {
@@ -387,7 +390,7 @@ class ShipEngine
      *
      * @return array An array of Tracking information corresponding to the Label Id.
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function trackUsingLabelId(string $labelId, array|ShipEngineConfig|null $config = null): array
     {
@@ -406,7 +409,7 @@ class ShipEngine
      * @param array|ShipEngineConfig|null $config Optional configuration overrides for this method call {apiKey:string,
      * baseUrl:string, pageSize:int, retries:int, timeout:int, client:HttpClient|null}
      * @return array An array of Tracking information corresponding to the Label Id.
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      */
     public function trackUsingCarrierCodeAndTrackingNumber(
         string $carrierCode,
@@ -425,8 +428,7 @@ class ShipEngine
      *
      * @return array ['shipments' => Shipment[]]
      *
-     * @throws GuzzleException
-     * @throws UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/list_shipments
      */
@@ -437,7 +439,7 @@ class ShipEngine
         $config = $this->config->merge($config);
         $response = ShipEngineClient::get(
             'shipments',
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -454,7 +456,7 @@ class ShipEngine
      *
      * @return array
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/create_shipments
      */
@@ -483,8 +485,7 @@ class ShipEngine
      *
      * @return array|Shipment
      *
-     * @throws GuzzleException
-     * @throws UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/get_shipment_by_external_id
      */
@@ -511,7 +512,7 @@ class ShipEngine
      *
      * @return array
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/parse_shipment
      */
@@ -531,8 +532,7 @@ class ShipEngine
      *
      * @return array|Shipment
      *
-     * @throws GuzzleException
-     * @throws UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/get_shipment_by_id
      */
@@ -561,8 +561,7 @@ class ShipEngine
      *
      * @return array|Shipment
      *
-     * @throws GuzzleException
-     * @throws UnknownProperties
+     * @throws GuzzleException|Exception|UnknownProperties
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/update_shipment
      */
@@ -575,7 +574,7 @@ class ShipEngine
 
         $response = ShipEngineClient::put(
             "shipments/$id",
-            $this->config->merge($config),
+            $config,
             $params,
         );
 
@@ -592,7 +591,7 @@ class ShipEngine
      *
      * @return array
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/cancel_shipments
      */
@@ -613,7 +612,7 @@ class ShipEngine
      *
      * @return array
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/list_shipment_rates
      */
@@ -636,7 +635,7 @@ class ShipEngine
      *
      * @return array
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/tag_shipment
      */
@@ -658,7 +657,7 @@ class ShipEngine
      *
      * @return array
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|Exception
      *
      * https://shipengine.github.io/shipengine-openapi/#operation/untag_shipment
      */

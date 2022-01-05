@@ -51,14 +51,92 @@ return [
         'base'     => env('SHIP_ENGINE_ENDPOINT', 'https://api.shipengine.com/'),
     ],
     'retries'  => env('SHIP_ENGINE_RETRIES', 1),
+    'response' => [
+        'as_object' => env('SHIP_ENGINE_RESPONSE_AS_OBJECT', false),
+        'page_size' => env('SHIP_ENGINE_RESPONSE_PAGE_SIZE', 50),
+    ],
+    'timeout' => 'PT10S',
 ];
 ```
 
 ## Usage
 
+### Config
+To use the ShipEngine wrapper you must first instantiate a new instance.
+
+By default, the config information is read out of the config file but can be overridden on the fly. This can be done 
+when instantiating a new instance, which will impact all subsequent calls, or when making the call.
 ```php
-$shipengine = new BluefynInternational\ShipEngine();
-$shipengine->
+// Use default config settings from `config/shipengine.php`
+$shipengine = new BluefynInternational\ShipEngine\ShipEngine();
+// Override config which will impact all calls made with this instance
+$config = new \BluefynInternational\ShipEngine\ShipEngineConfig(['asObject' => true]);
+$custom_shipengine = new BluefynInternational\ShipEngine\ShipEngine($config);
+// Override config on a single specific call
+$shipengine->listShipments(config: ['asObject' => true]);
+```
+
+### Making calls
+To make calls to the ShipEngine API you must have credentials setup within ShipEngine itself. Those API credentials will 
+then be used by this library to handle the calls and responses.
+
+**_NOTE:_** This library is still in the 0.x.x stages and not all endpoints are fully mapped. We are working towards 100% 
+coverage of existing API endpoints.
+
+Method names should match documentation names of API endpoints from official [ShipEngine API Docs](https://shipengine.github.io/shipengine-openapi/).
+
+#### Example calls
+Here is a sample of how to get a listing of shipments as well as the difference between `asObject => false` and `asObject => true`.
+```php
+$shipengine = new BluefynInternational\ShipEngine\ShipEngine();
+$shipengine->listShipments();
+//[
+//    "shipments" => [
+//        [
+//            "shipment_id" => "se-123456789",
+//            "carrier_id" => "se-123456",
+//            ...
+//        ],
+//        [...],
+//    ],
+//    "total" => 12,
+//    "page" => 1,
+//    "pages" => 1,
+//    "links" => [
+//        "first" => [
+//             "href" => "https://api.shipengine.com/v1/shipments?page=1&page_size=25",
+//        ],
+//        "last" => [
+//             "href" => "https://api.shipengine.com/v1/shipments?page=1&page_size=25",
+//        ],
+//        "prev" => [],
+//        "next" => [],
+//     ],
+//];
+$shipengine->listShipments(config: ['asObject' => true]);
+// [
+//     "shipments" => [
+//       BluefynInternational\ShipEngine\DTO\Shipment {#4070
+//           +shipment_id: "se-123456789",
+//           +carrier_id: "se-123456",
+//            ...
+//        ],
+//        [...],
+//    ],
+//    "total" => 12,
+//    "page" => 1,
+//    "pages" => 1,
+//    "links" => [
+//        "first" => [
+//             "href" => "https://api.shipengine.com/v1/shipments?page=1&page_size=25",
+//        ],
+//        "last" => [
+//             "href" => "https://api.shipengine.com/v1/shipments?page=1&page_size=25",
+//        ],
+//        "prev" => [],
+//        "next" => [],
+//     ],
+//];
 ```
 
 ## Testing

@@ -27,4 +27,9 @@ return [
         'base'     => env('SHIP_ENGINE_ENDPOINT', 'https://api.shipengine.com/'),
     ],
     'retries'  => env('SHIP_ENGINE_RETRIES', 1),
+    'response' => [
+        'as_object' => env('SHIP_ENGINE_RESPONSE_AS_OBJECT', false),
+        'page_size' => env('SHIP_ENGINE_RESPONSE_PAGE_SIZE', 50),
+    ],
+    'timeout' => 'PT10S',
 ];
