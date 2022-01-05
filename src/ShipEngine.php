@@ -2,7 +2,10 @@
 
 namespace BluefynInternational\ShipEngine;
 
+use BluefynInternational\ShipEngine\DTO\Label;
 use BluefynInternational\ShipEngine\DTO\Shipment;
+use BluefynInternational\ShipEngine\DTO\TrackingInformation;
+use BluefynInternational\ShipEngine\DTO\VoidLabel;
 use GuzzleHttp\Exception\GuzzleException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
@@ -75,6 +78,215 @@ class ShipEngine
             $this->config->merge($config),
             $params,
         );
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/list_labels
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function listLabels(
+        array $params = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::get(
+            'labels',
+            $config,
+            $params,
+        );
+
+        if ($config->asObject && ! empty($response['labels'])) {
+            $response['labels'] = $this->labelsToObjects($response['labels']);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/create_label
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function purchaseLabel(
+        array $params,
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+        $response = ShipEngineClient::post(
+            'labels',
+            $this->config->merge($config),
+            $params,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/get_label_by_external_shipment_id
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function getLabelByExternalShipmentId(
+        string $externalShipmentId,
+        array $params = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::get(
+            "labels/external_shipment_id/{$externalShipmentId}",
+            $this->config->merge($config),
+            $params,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_rate
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function purchaseLabelWithRateId(
+        string $rateId,
+        array $params = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::post(
+            "labels/rates/{$rateId}",
+            $this->config->merge($config),
+            $params,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/create_label_from_shipment
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function purchaseLabelWithShipmentId(
+        string $shipmentId,
+        array $params = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::post(
+            "labels/shipment/{$shipmentId}",
+            $this->config->merge($config),
+            $params,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/get_label_by_id
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function getLabelById(
+        string $labelId,
+        array $params = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::get(
+            "labels/{$labelId}",
+            $this->config->merge($config),
+            $params,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/create_return_label
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function createReturnLabel(
+        string $labelId,
+        array $params = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::post(
+            "labels/{$labelId}/return",
+            $this->config->merge($config),
+            $params,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/get_tracking_log_from_label
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function getLabelTrackingInformation(
+        string $labelId,
+        array|ShipEngineConfig|null $config = null,
+    ) : array|TrackingInformation {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::get(
+            "labels/{$labelId}/return",
+            $this->config->merge($config),
+        );
+
+        if ($config->asObject) {
+            return new TrackingInformation($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/void_label
+     * @throws GuzzleException|UnknownProperties
+     */
+    public function voidLabelById(
+        string $labelId,
+        array|ShipEngineConfig|null $config = null,
+    ) : array|VoidLabel {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::put(
+            "labels/{$labelId}/void",
+            $this->config->merge($config),
+        );
+
+        if ($config->asObject) {
+            return new VoidLabel($response);
+        }
+
+        return $response;
     }
 
     /**
@@ -472,5 +684,18 @@ class ShipEngine
         }
 
         return $shipment_objects;
+    }
+
+    /**
+     * @throws UnknownProperties
+     */
+    private function labelsToObjects(array $labels) : array
+    {
+        $label_objects = [];
+        foreach ($labels as $label) {
+            $label_objects[] = new Label($label);
+        }
+
+        return $label_objects;
     }
 }
