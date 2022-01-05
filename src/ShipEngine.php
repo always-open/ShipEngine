@@ -30,8 +30,8 @@ class ShipEngine
      */
     public function __construct(array|ShipEngineConfig|null $config = null)
     {
-        if (is_array($config)) {
-            $config = new ShipEngineConfig($config);
+        if (! $config instanceof ShipEngineConfig) {
+            $config = new ShipEngineConfig($config ?? []);
         }
 
         $this->config = $config;
