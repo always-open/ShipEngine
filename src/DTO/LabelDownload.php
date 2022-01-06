@@ -6,8 +6,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class LabelDownload extends DataTransferObject
 {
-    public string $href;
-    public string $pdf;
-    public string $png;
-    public string $zpl;
+    public string|null $href;
+    public string|null $pdf;
+    public string|null $png;
+    public string|null $zpl;
 }
