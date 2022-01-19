@@ -28,7 +28,7 @@ trait Tags
 
         if ($config->asObject) {
             $tag_objects = [];
-            foreach($response['tags'] AS $tag) {
+            foreach ($response['tags'] as $tag) {
                 $tag_objects[] = new Tag($tag);
             }
             $response['tags'] = $tag_objects;
