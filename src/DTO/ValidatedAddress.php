@@ -10,9 +10,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 class ValidatedAddress extends DataTransferObject
 {
     #[InArray(['unverified', 'verified', 'warning', 'error'])]
-    public string $status;
-    public array $original_address;
+    public string|null $status;
+    public array|null $original_address;
     public Address|null $matched_address;
     #[CastWith(NullableArrayCaster::class, itemType: ValidatedAddressMessage::class)]
-    public array $messages;
+    public array|null $messages;
 }
