@@ -6,6 +6,7 @@ use BluefynInternational\ShipEngine\Traits\Addresses;
 use BluefynInternational\ShipEngine\Traits\Carriers;
 use BluefynInternational\ShipEngine\Traits\Labels;
 use BluefynInternational\ShipEngine\Traits\Shipments;
+use BluefynInternational\ShipEngine\Traits\Tags;
 use BluefynInternational\ShipEngine\Traits\Tracking;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
@@ -16,6 +17,7 @@ class ShipEngine
     use Carriers;
     use Labels;
     use Shipments;
+    use Tags;
     use Tracking;
 
     /**
