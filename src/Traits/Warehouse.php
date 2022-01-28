@@ -2,11 +2,11 @@
 
 namespace BluefynInternational\ShipEngine\Traits;
 
+use BluefynInternational\ShipEngine\DTO\Warehouse as WarehouseDTO;
 use BluefynInternational\ShipEngine\ShipEngineClient;
 use BluefynInternational\ShipEngine\ShipEngineConfig;
 use GuzzleHttp\Exception\GuzzleException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
-use BluefynInternational\ShipEngine\DTO\Warehouse as WarehouseDTO;
 
 trait Warehouse
 {
@@ -48,7 +48,7 @@ trait Warehouse
     ) : array|WarehouseDTO {
         $config = $this->config->merge($config);
         $payload = [
-            'name'           => $name,
+            'name' => $name,
             'origin_address' => $origin_address,
         ];
         if ($return_address) {
@@ -104,7 +104,7 @@ trait Warehouse
         array|ShipEngineConfig $config = null,
     ) : array {
         $payload = [
-            'name'           => $name,
+            'name' => $name,
             'origin_address' => $origin_address,
         ];
         if ($return_address) {
