@@ -8,6 +8,7 @@ use BluefynInternational\ShipEngine\Traits\Labels;
 use BluefynInternational\ShipEngine\Traits\Shipments;
 use BluefynInternational\ShipEngine\Traits\Tags;
 use BluefynInternational\ShipEngine\Traits\Tracking;
+use BluefynInternational\ShipEngine\Traits\Warehouse;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -19,6 +20,7 @@ class ShipEngine
     use Shipments;
     use Tags;
     use Tracking;
+    use Warehouse;
 
     /**
      * ShipEngine SDK Version
