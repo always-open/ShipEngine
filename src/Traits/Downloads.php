@@ -13,8 +13,7 @@ trait Downloads
         string $fileName,
         array $params = [],
         array|ShipEngineConfig|null $config = null,
-    ): array
-    {
+    ): array {
         return ShipEngineClient::get(
             "downloads/$directory/$subDirectory/$fileName",
             $this->config->merge($config),

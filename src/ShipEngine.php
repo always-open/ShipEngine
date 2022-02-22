@@ -7,6 +7,7 @@ use BluefynInternational\ShipEngine\Traits\Batches;
 use BluefynInternational\ShipEngine\Traits\CarrierAccounts;
 use BluefynInternational\ShipEngine\Traits\Carriers;
 use BluefynInternational\ShipEngine\Traits\Downloads;
+use BluefynInternational\ShipEngine\Traits\Insurance;
 use BluefynInternational\ShipEngine\Traits\Labels;
 use BluefynInternational\ShipEngine\Traits\Shipments;
 use BluefynInternational\ShipEngine\Traits\Tags;
@@ -23,6 +24,7 @@ class ShipEngine
     use Carriers;
     use Downloads;
     use Labels;
+    use Insurance;
     use Shipments;
     use Tags;
     use Tracking;
