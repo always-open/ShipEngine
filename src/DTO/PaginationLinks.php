@@ -2,7 +2,6 @@
 
 namespace BluefynInternational\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\Regex;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class PaginationLinks extends DataTransferObject

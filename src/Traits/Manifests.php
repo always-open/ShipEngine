@@ -2,7 +2,6 @@
 
 namespace BluefynInternational\ShipEngine\Traits;
 
-use BluefynInternational\ShipEngine\DTO\CurrencyAmount;
 use BluefynInternational\ShipEngine\DTO\Manifest;
 use BluefynInternational\ShipEngine\DTO\PaginationLinks;
 use BluefynInternational\ShipEngine\ShipEngineClient;
@@ -76,6 +75,4 @@ trait Manifests
 
         return $response;
     }
-
-
 }
