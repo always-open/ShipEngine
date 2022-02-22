@@ -40,6 +40,21 @@ class ShipEngineClient
     }
 
     /**
+     * Implement a POST request and return output
+     *
+     * @param string $path
+     * @param ShipEngineConfig $config
+     * @param array|null $params
+     *
+     * @return array
+     * @throws GuzzleException
+     */
+    public static function patch(string $path, ShipEngineConfig $config, array $params = null): array
+    {
+        return self::sendRequestWithRetries('PATCH', $path, $params, $config);
+    }
+
+    /**
      * Implement a PUT request and return output
      *
      * @param string $path
