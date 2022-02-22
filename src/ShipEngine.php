@@ -9,6 +9,7 @@ use BluefynInternational\ShipEngine\Traits\Carriers;
 use BluefynInternational\ShipEngine\Traits\Downloads;
 use BluefynInternational\ShipEngine\Traits\Insurance;
 use BluefynInternational\ShipEngine\Traits\Labels;
+use BluefynInternational\ShipEngine\Traits\Manifests;
 use BluefynInternational\ShipEngine\Traits\Shipments;
 use BluefynInternational\ShipEngine\Traits\Tags;
 use BluefynInternational\ShipEngine\Traits\Tracking;
@@ -24,6 +25,7 @@ class ShipEngine
     use Carriers;
     use Downloads;
     use Labels;
+    use Manifests;
     use Insurance;
     use Shipments;
     use Tags;
