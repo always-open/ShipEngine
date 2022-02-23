@@ -12,6 +12,7 @@ use BluefynInternational\ShipEngine\Traits\Labels;
 use BluefynInternational\ShipEngine\Traits\Manifests;
 use BluefynInternational\ShipEngine\Traits\PackageTypes;
 use BluefynInternational\ShipEngine\Traits\Shipments;
+use BluefynInternational\ShipEngine\Traits\ShippingRates;
 use BluefynInternational\ShipEngine\Traits\Tags;
 use BluefynInternational\ShipEngine\Traits\Tracking;
 use BluefynInternational\ShipEngine\Traits\Warehouse;
@@ -30,6 +31,7 @@ class ShipEngine
     use PackageTypes;
     use Insurance;
     use Shipments;
+    use ShippingRates;
     use Tags;
     use Tracking;
     use Warehouse;
