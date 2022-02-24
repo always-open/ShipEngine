@@ -2,6 +2,7 @@
 
 namespace BluefynInternational\ShipEngine\Traits;
 
+use BluefynInternational\ShipEngine\DTO\PaginationLinks;
 use BluefynInternational\ShipEngine\DTO\Shipment;
 use BluefynInternational\ShipEngine\ShipEngineClient;
 use BluefynInternational\ShipEngine\ShipEngineConfig;
@@ -11,6 +12,8 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 trait Shipments
 {
+    use listToObjects;
+
     /**
      * @param array|null $params
      * @param array|ShipEngineConfig|null $config
@@ -33,7 +36,8 @@ trait Shipments
         );
 
         if ($config->asObject && ! empty($response['shipments'])) {
-            $response['shipments'] = $this->shipmentsToObjects($response['shipments']);
+            $response['shipments'] = $this->listToObjects($response['shipments'], Shipment::class);
+            $response['links'] = new PaginationLinks($response['links']);
         }
 
         return $response;
@@ -62,7 +66,7 @@ trait Shipments
         );
 
         if (! $response['has_errors'] && $config->asObject) {
-            $response['shipments'] = $this->shipmentsToObjects($response['shipments']);
+            $response['shipments'] = $this->listToObjects($response['shipments'], Shipment::class);
         }
 
         return $response;
@@ -259,18 +263,5 @@ trait Shipments
             "shipments/$id/tags/$tag_name",
             $this->config->merge($config),
         );
-    }
-
-    /**
-     * @throws UnknownProperties
-     */
-    private function shipmentsToObjects(array $shipments) : array
-    {
-        $shipment_objects = [];
-        foreach ($shipments as $shipment) {
-            $shipment_objects[] = new Shipment($shipment);
-        }
-
-        return $shipment_objects;
     }
 }

@@ -3,9 +3,16 @@
 namespace BluefynInternational\ShipEngine;
 
 use BluefynInternational\ShipEngine\Traits\Addresses;
+use BluefynInternational\ShipEngine\Traits\Batches;
+use BluefynInternational\ShipEngine\Traits\CarrierAccounts;
 use BluefynInternational\ShipEngine\Traits\Carriers;
+use BluefynInternational\ShipEngine\Traits\Downloads;
+use BluefynInternational\ShipEngine\Traits\Insurance;
 use BluefynInternational\ShipEngine\Traits\Labels;
+use BluefynInternational\ShipEngine\Traits\Manifests;
+use BluefynInternational\ShipEngine\Traits\PackageTypes;
 use BluefynInternational\ShipEngine\Traits\Shipments;
+use BluefynInternational\ShipEngine\Traits\ShippingRates;
 use BluefynInternational\ShipEngine\Traits\Tags;
 use BluefynInternational\ShipEngine\Traits\Tracking;
 use BluefynInternational\ShipEngine\Traits\Warehouse;
@@ -15,9 +22,16 @@ use GuzzleHttp\Exception\GuzzleException;
 class ShipEngine
 {
     use Addresses;
+    use Batches;
+    use CarrierAccounts;
     use Carriers;
+    use Downloads;
     use Labels;
+    use Manifests;
+    use PackageTypes;
+    use Insurance;
     use Shipments;
+    use ShippingRates;
     use Tags;
     use Tracking;
     use Warehouse;

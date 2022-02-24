@@ -3,6 +3,7 @@
 namespace BluefynInternational\ShipEngine\Traits;
 
 use BluefynInternational\ShipEngine\DTO\Label;
+use BluefynInternational\ShipEngine\DTO\PaginationLinks;
 use BluefynInternational\ShipEngine\DTO\TrackingInformation;
 use BluefynInternational\ShipEngine\DTO\VoidLabel;
 use BluefynInternational\ShipEngine\ShipEngineClient;
@@ -13,6 +14,8 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 trait Labels
 {
+    use listToObjects;
+
     /**
      * Purchase and print a label for shipment.
      * https://shipengine.github.io/shipengine-openapi/#operation/create_label
@@ -91,7 +94,8 @@ trait Labels
         );
 
         if ($config->asObject && ! empty($response['labels'])) {
-            $response['labels'] = $this->labelsToObjects($response['labels']);
+            $response['labels'] = $this->listToObjects($response['labels'], Label::class);
+            $response['links'] = new PaginationLinks($response['links']);
         }
 
         return $response;
@@ -281,18 +285,5 @@ trait Labels
         }
 
         return $response;
-    }
-
-    /**
-     * @throws UnknownProperties
-     */
-    private function labelsToObjects(array $labels) : array
-    {
-        $label_objects = [];
-        foreach ($labels as $label) {
-            $label_objects[] = new Label($label);
-        }
-
-        return $label_objects;
     }
 }
