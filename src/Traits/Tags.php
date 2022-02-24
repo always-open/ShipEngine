@@ -20,21 +20,13 @@ trait Tags
     public function getTags(
         array|ShipEngineConfig $config = null,
     ) : array {
-        $config = $this->config->merge($config);
-        $response = ShipEngineClient::get(
+        return $this->retrieveList(
             'tags',
+            [],
             $config,
+            'tags',
+            Tag::class,
         );
-
-        if ($config->asObject) {
-            $tag_objects = [];
-            foreach ($response['tags'] as $tag) {
-                $tag_objects[] = new Tag($tag);
-            }
-            $response['tags'] = $tag_objects;
-        }
-
-        return $response;
     }
 
     /**

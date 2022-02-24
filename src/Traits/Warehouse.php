@@ -10,6 +10,8 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 trait Warehouse
 {
+    use BaseCalls;
+
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/list_warehouses
      *
@@ -18,21 +20,13 @@ trait Warehouse
     public function listWarehouse(
         array|ShipEngineConfig $config = null,
     ) : array {
-        $config = $this->config->merge($config);
-        $response = ShipEngineClient::get(
+        return $this->retrieveList(
             'warehouses',
+            [],
             $config,
+            'warehouses',
+            WarehouseDTO::class,
         );
-
-        if ($config->asObject) {
-            $warehouse_objects = [];
-            foreach ($response['warehouses'] as $warehouse) {
-                $warehouse_objects[] = new WarehouseDTO($warehouse);
-            }
-            $response['warehouses'] = $warehouse_objects;
-        }
-
-        return $response;
     }
 
     /**

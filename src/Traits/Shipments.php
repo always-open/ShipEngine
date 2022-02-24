@@ -11,7 +11,6 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 trait Shipments
 {
-    use listToObjects;
     use BaseCalls;
 
     /**
