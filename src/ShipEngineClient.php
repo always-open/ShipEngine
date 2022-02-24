@@ -156,14 +156,12 @@ class ShipEngineClient
                 'max_retry_attempts' => $config->retries,
             ]);
 
-        $api_version = config('shipengine.endpoint.version', 'v1');
-        if (! in_array(stripos($path, $api_version), [0 ,1], true)) {
-            $path = str_replace('//', '/', '/' . $api_version . '/' . $path);
-        }
-
-        $jsonData = json_encode($params, JSON_UNESCAPED_SLASHES);
-
-        $request = new Request($method, $path, $requestHeaders, $jsonData);
+        $request = new Request(
+            $method,
+            self::buildVersionedUrlPath($path),
+            $requestHeaders,
+            json_encode($params, JSON_UNESCAPED_SLASHES),
+        );
 
         try {
             $response = $client->send(
@@ -181,11 +179,17 @@ class ShipEngineClient
             );
         }
 
-        $responseBody = (string)$response->getBody();
+        return self::handleResponse(json_decode((string)$response->getBody(), true));
+    }
 
-        $parsedResponse = json_decode($responseBody, true);
+    private static function buildVersionedUrlPath(string $path) : string
+    {
+        $api_version = config('shipengine.endpoint.version', 'v1');
+        if (! in_array(stripos($path, $api_version), [0 ,1], true)) {
+            $path = str_replace('//', '/', '/' . $api_version . '/' . $path);
+        }
 
-        return self::handleResponse($parsedResponse);
+        return $path;
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace BluefynInternational\ShipEngine\Traits;
 
 use BluefynInternational\ShipEngine\DTO\Label;
-use BluefynInternational\ShipEngine\DTO\PaginationLinks;
 use BluefynInternational\ShipEngine\DTO\TrackingInformation;
 use BluefynInternational\ShipEngine\DTO\VoidLabel;
 use BluefynInternational\ShipEngine\ShipEngineClient;
@@ -85,20 +84,13 @@ trait Labels
         array $params = [],
         array|ShipEngineConfig|null $config = null,
     ) : array {
-        $config = $this->config->merge($config);
-
-        $response = ShipEngineClient::get(
+        return $this->retrieveList(
             'labels',
-            $config,
             $params,
+            $config,
+            'labels',
+            Label::class,
         );
-
-        if ($config->asObject && ! empty($response['labels'])) {
-            $response['labels'] = $this->listToObjects($response['labels'], Label::class);
-            $response['links'] = new PaginationLinks($response['links']);
-        }
-
-        return $response;
     }
 
     /**

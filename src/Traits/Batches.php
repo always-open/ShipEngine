@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 trait Batches
 {
-    use listToObjects;
+    use BaseCalls;
 
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/list_batches
@@ -23,20 +23,13 @@ trait Batches
         array $params,
         array|ShipEngineConfig|null $config = null,
     ): array {
-        $config = $this->config->merge($config);
-
-        $response = ShipEngineClient::get(
+        return $this->retrieveList(
             'batches',
-            $config,
             $params,
+            $config,
+            'batches',
+            Batch::class,
         );
-
-        if ($config->asObject && ! empty($response['batches'])) {
-            $response['batches'] = $this->listToObjects($response['batches'], Batch::class);
-            $response['links'] = new PaginationLinks($response['links']);
-        }
-
-        return $response;
     }
 
     /**

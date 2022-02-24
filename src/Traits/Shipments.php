@@ -2,7 +2,6 @@
 
 namespace BluefynInternational\ShipEngine\Traits;
 
-use BluefynInternational\ShipEngine\DTO\PaginationLinks;
 use BluefynInternational\ShipEngine\DTO\Shipment;
 use BluefynInternational\ShipEngine\ShipEngineClient;
 use BluefynInternational\ShipEngine\ShipEngineConfig;
@@ -13,6 +12,7 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 trait Shipments
 {
     use listToObjects;
+    use BaseCalls;
 
     /**
      * @param array|null $params
@@ -28,19 +28,13 @@ trait Shipments
         array|null $params = null,
         array|ShipEngineConfig $config = null,
     ) : array {
-        $config = $this->config->merge($config);
-        $response = ShipEngineClient::get(
+        return $this->retrieveList(
             'shipments',
-            $config,
             $params,
+            $config,
+        'shipments',
+            Shipment::class,
         );
-
-        if ($config->asObject && ! empty($response['shipments'])) {
-            $response['shipments'] = $this->listToObjects($response['shipments'], Shipment::class);
-            $response['links'] = new PaginationLinks($response['links']);
-        }
-
-        return $response;
     }
 
     /**
