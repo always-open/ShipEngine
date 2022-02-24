@@ -68,15 +68,11 @@ trait CarrierAccounts
 
         if ($config->asObject) {
             if (array_key_exists('smart_post_hub', $response)) {
-                return new FedexSettings($response);
-            }
-
-            if (array_key_exists('use_carbon_neutral_shipping_program', $response)) {
-                return new UpsSettings($response);
-            }
-
-            if (array_key_exists('should_hide_account_number_on_archive_doc', $response)) {
-                return new DhlExpressSettings($response);
+                $response = new FedexSettings($response);
+            } elseif (array_key_exists('use_carbon_neutral_shipping_program', $response)) {
+                $response = new UpsSettings($response);
+            } elseif (array_key_exists('should_hide_account_number_on_archive_doc', $response)) {
+                $response = new DhlExpressSettings($response);
             }
         }
 
