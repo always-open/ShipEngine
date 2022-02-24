@@ -10,6 +10,8 @@ use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 trait Tags
 {
+    use BaseCalls;
+
     /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/list_tags
      *
