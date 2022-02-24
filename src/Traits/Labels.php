@@ -116,6 +116,52 @@ trait Labels
     }
 
     /**
+     * @throws UnknownProperties|GuzzleException|Exception
+     */
+    protected function getLabel(
+        string $path,
+        array $params = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::get(
+            $path,
+            $config,
+            $params,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @throws UnknownProperties|GuzzleException|Exception
+     */
+    protected function postLabel(
+        string $path,
+        array $payload = [],
+        array|ShipEngineConfig|null $config = null,
+    ) : array|Label {
+        $config = $this->config->merge($config);
+
+        $response = ShipEngineClient::post(
+            $path,
+            $config,
+            $payload,
+        );
+
+        if ($config->asObject) {
+            return new Label($response);
+        }
+
+        return $response;
+    }
+
+    /**
      * @see https://shipengine.github.io/shipengine-openapi/#operation/get_label_by_external_shipment_id
      * @throws GuzzleException|Exception|UnknownProperties
      */
@@ -124,19 +170,11 @@ trait Labels
         array $params = [],
         array|ShipEngineConfig|null $config = null,
     ) : array|Label {
-        $config = $this->config->merge($config);
-
-        $response = ShipEngineClient::get(
+        return $this->getLabel(
             "labels/external_shipment_id/{$externalShipmentId}",
-            $config,
             $params,
+            $config,
         );
-
-        if ($config->asObject) {
-            return new Label($response);
-        }
-
-        return $response;
     }
 
     /**
@@ -145,22 +183,14 @@ trait Labels
      */
     public function purchaseLabelWithRateId(
         string $rateId,
-        array $params = [],
+        array $payload = [],
         array|ShipEngineConfig|null $config = null,
     ) : array|Label {
-        $config = $this->config->merge($config);
-
-        $response = ShipEngineClient::post(
+        return $this->postLabel(
             "labels/rates/{$rateId}",
+            $payload,
             $config,
-            $params,
         );
-
-        if ($config->asObject) {
-            return new Label($response);
-        }
-
-        return $response;
     }
 
     /**
@@ -169,22 +199,14 @@ trait Labels
      */
     public function purchaseLabelWithShipmentId(
         string $shipmentId,
-        array $params = [],
+        array $payload = [],
         array|ShipEngineConfig|null $config = null,
     ) : array|Label {
-        $config = $this->config->merge($config);
-
-        $response = ShipEngineClient::post(
+        return $this->postLabel(
             "labels/shipment/{$shipmentId}",
+            $payload,
             $config,
-            $params,
         );
-
-        if ($config->asObject) {
-            return new Label($response);
-        }
-
-        return $response;
     }
 
     /**
@@ -196,19 +218,11 @@ trait Labels
         array $params = [],
         array|ShipEngineConfig|null $config = null,
     ) : array|Label {
-        $config = $this->config->merge($config);
-
-        $response = ShipEngineClient::get(
+        return $this->getLabel(
             "labels/{$labelId}",
-            $config,
             $params,
+            $config,
         );
-
-        if ($config->asObject) {
-            return new Label($response);
-        }
-
-        return $response;
     }
 
     /**
