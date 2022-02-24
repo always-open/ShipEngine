@@ -4,6 +4,7 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/bluefyn-international/shipengine/run-tests?label=tests)](https://github.com/bluefyn-international/shipengine/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bluefyn-international/shipengine/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bluefyn-international/shipengine/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/bluefyn-international/shipengine.svg?style=flat-square)](https://packagist.org/packages/bluefyn-international/shipengine)
+<a href="https://codeclimate.com/github/bluefyn-international/ShipEngine/maintainability"><img src="https://api.codeclimate.com/v1/badges/6817ad06980c52a8343d/maintainability" /></a>
 
 Wrapper around ShipEngine API
 
