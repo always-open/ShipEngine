@@ -13,7 +13,7 @@ class ShipmentCustomsItem extends DataTransferObject
     public string|null $description;
     #[GreaterThanOrEquals(0)]
     public int $quantity;
-    public CurrencyAmount $value;
+    public float $value;
     public string|null $harmonized_tariff_code;
     public string|null $country_of_origin;
     public string|null $unit_of_measure;
