@@ -27,10 +27,10 @@ class ShipmentCustomsItem extends DataTransferObject
             $temp = $temp[0];
         }
 
-        if(is_float($temp['value'])) {
+        if (is_float($temp['value'])) {
             $args['value'] = [
                 'currency' => 'usd',
-                'amount'  => $temp['value'],
+                'amount' => $temp['value'],
             ];
         }
 
