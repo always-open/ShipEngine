@@ -119,7 +119,7 @@ class ShipEngineClient
                     throw $err;
                 }
             }
-        } while(++$retry <= $config->retries);
+        } while (++$retry <= $config->retries);
 
         return $response;
     }
