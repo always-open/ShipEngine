@@ -19,4 +19,21 @@ class ShipmentCustomsItem extends DataTransferObject
     public string|null $unit_of_measure;
     public string|null $sku;
     public string|null $sku_description;
+
+    public function __construct(...$args)
+    {
+        $temp = $args;
+        if (is_array($temp[0] ?? null)) {
+            $temp = $temp[0];
+        }
+
+        if (is_float($temp['value'])) {
+            $args['value'] = [
+                'currency' => 'usd',
+                'amount' => $temp['value'],
+            ];
+        }
+
+        parent::__construct($args);
+    }
 }
