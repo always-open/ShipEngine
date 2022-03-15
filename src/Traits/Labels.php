@@ -84,6 +84,7 @@ trait Labels
         array $params = [],
         array|ShipEngineConfig|null $config = null,
     ) : array {
+        $config = $this->config->merge($config);
         return $this->retrieveList(
             'labels',
             $params,
