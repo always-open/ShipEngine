@@ -6,6 +6,6 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class FormDownload extends DataTransferObject
 {
-    public string $href;
-    public string $type;
+    public string|null $href;
+    public string|null $type;
 }

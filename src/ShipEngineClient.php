@@ -21,6 +21,11 @@ class ShipEngineClient
      */
     public static function get(string $path, ShipEngineConfig $config, null|array $params = null): array
     {
+        if ($params) {
+            $path .=
+                (parse_url($path, PHP_URL_QUERY) ? '&' : '?')
+                . http_build_query($params);
+        }
         return self::sendRequestWithRetries('GET', $path, $params, $config);
     }
 
