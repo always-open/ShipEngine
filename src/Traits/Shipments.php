@@ -31,7 +31,7 @@ trait Shipments
             'shipments',
             $params,
             $config,
-        'shipments',
+            'shipments',
             Shipment::class,
         );
     }

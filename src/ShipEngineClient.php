@@ -26,6 +26,7 @@ class ShipEngineClient
                 (parse_url($path, PHP_URL_QUERY) ? '&' : '?')
                 . http_build_query($params);
         }
+
         return self::sendRequestWithRetries('GET', $path, $params, $config);
     }
 
@@ -124,7 +125,7 @@ class ShipEngineClient
                     throw $err;
                 }
             }
-        } while(++$retry <= $config->retries);
+        } while (++$retry <= $config->retries);
 
         return $response;
     }

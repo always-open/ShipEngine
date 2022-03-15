@@ -3,7 +3,6 @@
 namespace BluefynInternational\ShipEngine\Traits;
 
 use BluefynInternational\ShipEngine\DTO\PaginationLinks;
-use BluefynInternational\ShipEngine\DTO\Shipment;
 use BluefynInternational\ShipEngine\ShipEngineClient;
 use BluefynInternational\ShipEngine\ShipEngineConfig;
 use Exception;
