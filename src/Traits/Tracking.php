@@ -42,7 +42,7 @@ trait Tracking
         string $carrier_code,
         string $tracking_number,
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         return ShipEngineClient::post(
             "tracking/start?carrier_code=$carrier_code&tracking_number=$tracking_number",
             $this->config->merge($config),
@@ -58,7 +58,7 @@ trait Tracking
         string $carrier_code,
         string $tracking_number,
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         return ShipEngineClient::post(
             "tracking/stop?carrier_code=$carrier_code&tracking_number=$tracking_number",
             $this->config->merge($config),

@@ -1,7 +1,7 @@
 FROM arm64v8/php:8.1-fpm
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl zip unzip libonig-dev
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -39,5 +39,3 @@ RUN mkdir -p /var/www/app && \
 
 # Set working directory
 WORKDIR /var/www/app
-
-USER ubuntu

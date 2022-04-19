@@ -96,7 +96,7 @@ trait Warehouse
         array $origin_address,
         array $return_address = [],
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         $payload = [
             'name' => $name,
             'origin_address' => $origin_address,
@@ -120,7 +120,7 @@ trait Warehouse
     public function deleteWarehouseById(
         string $warehouse_id,
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         return ShipEngineClient::delete(
             "warehouses/{$warehouse_id}",
             $this->config->merge($config),

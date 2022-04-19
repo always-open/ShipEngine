@@ -61,7 +61,7 @@ trait Tags
     public function deleteTag(
         string $tag_name,
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         return ShipEngineClient::delete(
             "tags/$tag_name",
             $this->config->merge($config),
@@ -77,7 +77,7 @@ trait Tags
         string $tag_name,
         string $new_tag_name,
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         return ShipEngineClient::put(
             "tags/$tag_name/$new_tag_name",
             $this->config->merge($config),

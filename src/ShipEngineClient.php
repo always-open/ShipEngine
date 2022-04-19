@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Response;
 
 class ShipEngineClient
 {
@@ -16,10 +17,10 @@ class ShipEngineClient
      * @param ShipEngineConfig $config
      * @param array|null $params
      *
-     * @return array
+     * @return array|null
      * @throws GuzzleException
      */
-    public static function get(string $path, ShipEngineConfig $config, null|array $params = null): array
+    public static function get(string $path, ShipEngineConfig $config, null|array $params = null): array|null
     {
         if ($params) {
             $path .=
@@ -37,10 +38,10 @@ class ShipEngineClient
      * @param ShipEngineConfig $config
      * @param array|null $params
      *
-     * @return array
+     * @return array|null
      * @throws GuzzleException
      */
-    public static function post(string $path, ShipEngineConfig $config, array $params = null): array
+    public static function post(string $path, ShipEngineConfig $config, array $params = null): array|null
     {
         return self::sendRequestWithRetries('POST', $path, $params, $config);
     }
@@ -52,10 +53,10 @@ class ShipEngineClient
      * @param ShipEngineConfig $config
      * @param array|null $params
      *
-     * @return array
+     * @return array|null
      * @throws GuzzleException
      */
-    public static function patch(string $path, ShipEngineConfig $config, array $params = null): array
+    public static function patch(string $path, ShipEngineConfig $config, array $params = null): array|null
     {
         return self::sendRequestWithRetries('PATCH', $path, $params, $config);
     }
@@ -67,10 +68,10 @@ class ShipEngineClient
      * @param ShipEngineConfig $config
      * @param array|null $params
      *
-     * @return array
+     * @return array|null
      * @throws GuzzleException
      */
-    public static function put(string $path, ShipEngineConfig $config, array $params = null): array
+    public static function put(string $path, ShipEngineConfig $config, array $params = null): array|null
     {
         return self::sendRequestWithRetries('PUT', $path, $params, $config);
     }
@@ -81,10 +82,10 @@ class ShipEngineClient
      * @param string $path
      * @param ShipEngineConfig $config
      *
-     * @return array
+     * @return array|null
      * @throws GuzzleException
      */
-    public static function delete(string $path, ShipEngineConfig $config): array
+    public static function delete(string $path, ShipEngineConfig $config): array|null
     {
         return self::sendRequestWithRetries('DELETE', $path, null, $config);
     }
@@ -97,7 +98,7 @@ class ShipEngineClient
      * @param array|null $params
      * @param ShipEngineConfig $config
      *
-     * @return array
+     * @return array|null
      *
      * @throws GuzzleException
      */
@@ -106,7 +107,7 @@ class ShipEngineClient
         string $path,
         ?array $params,
         ShipEngineConfig $config
-    ): array {
+    ): array|null {
         $response = [];
         $retry = 0;
 
@@ -139,7 +140,7 @@ class ShipEngineClient
      * @param array|null $params
      * @param ShipEngineConfig $config
      *
-     * @return array
+     * @return array|null
      *
      * @throws GuzzleException
      */
@@ -148,7 +149,7 @@ class ShipEngineClient
         string $path,
         ?array $params,
         ShipEngineConfig $config
-    ): array {
+    ): array|null {
         $requestHeaders = [
             'api-key' => $config->apiKey,
             'User-Agent' => self::deriveUserAgent(),
@@ -185,7 +186,7 @@ class ShipEngineClient
             );
         }
 
-        return self::handleResponse(json_decode((string)$response->getBody(), true));
+        return self::handleResponse(json_decode((string)$response->getBody(), true), $response->getStatusCode());
     }
 
     private static function buildVersionedUrlPath(string $path) : string
@@ -201,11 +202,16 @@ class ShipEngineClient
     /**
      * Handles the response from ShipEngine API.
      *
-     * @param array $response
-     * @return array
+     * @param array|null $response
+     * @param int        $responseCode
+     * @return array|null
      */
-    private static function handleResponse(array $response): array
+    private static function handleResponse(array|null $response, int $responseCode): array|null
     {
+        if (is_null($response) && $responseCode === Response::HTTP_NO_CONTENT) {
+            return null;
+        }
+
         if (! isset($response['errors']) || (count($response['errors']) == 0)) {
             return $response;
         }

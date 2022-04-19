@@ -175,7 +175,7 @@ trait Shipments
      * @param string $id
      * @param array|ShipEngineConfig|null $config
      *
-     * @return array
+     * @return array|null
      *
      * @throws GuzzleException|Exception
      *
@@ -184,7 +184,7 @@ trait Shipments
     public function cancelShipment(
         string $id,
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         return ShipEngineClient::put(
             "shipments/$id/cancel",
             $this->config->merge($config),
@@ -241,7 +241,7 @@ trait Shipments
      * @param string $tag_name
      * @param array|ShipEngineConfig|null $config
      *
-     * @return array
+     * @return array|null
      *
      * @throws GuzzleException|Exception
      *
@@ -251,7 +251,7 @@ trait Shipments
         string $id,
         string $tag_name,
         array|ShipEngineConfig $config = null,
-    ) : array {
+    ) : array|null {
         return ShipEngineClient::delete(
             "shipments/$id/tags/$tag_name",
             $this->config->merge($config),

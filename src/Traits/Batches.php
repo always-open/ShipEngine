@@ -87,7 +87,7 @@ trait Batches
     public function deleteBatchById(
         string $batchId,
         array|ShipEngineConfig|null $config = null,
-    ): array|string {
+    ): array|string|null {
         return ShipEngineClient::delete(
             "batches/$batchId",
             $this->config->merge($config),
@@ -126,7 +126,7 @@ trait Batches
         string $batchId,
         array $batch,
         array|ShipEngineConfig|null $config = null,
-    ): array {
+    ): array|null {
         return ShipEngineClient::put(
             "batches/$batchId",
             $this->config->merge($config),
@@ -143,7 +143,7 @@ trait Batches
         string $batchId,
         array $payload,
         array|ShipEngineConfig|null $config = null,
-    ): array {
+    ): array|null {
         return ShipEngineClient::post(
             "batches/$batchId/add",
             $this->config->merge($config),
@@ -185,7 +185,7 @@ trait Batches
         string $batchId,
         array $payload = [],
         array|ShipEngineConfig|null $config = null,
-    ): array {
+    ): array|null {
         return ShipEngineClient::post(
             "batches/$batchId/process/labels",
             $this->config->merge($config),
@@ -202,7 +202,7 @@ trait Batches
         string $batchId,
         array $payload = [],
         array|ShipEngineConfig|null $config = null,
-    ): array {
+    ): array|null {
         return ShipEngineClient::post(
             "batches/$batchId/remove",
             $this->config->merge($config),
