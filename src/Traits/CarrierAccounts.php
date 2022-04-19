@@ -42,7 +42,7 @@ trait CarrierAccounts
         string $carrierName,
         string $carrierId,
         array|ShipEngineConfig|null $config = null,
-    ): array {
+    ): array|null {
         return ShipEngineClient::delete(
             "connections/carriers/$carrierName/$carrierId",
             $this->config->merge($config),
@@ -50,7 +50,7 @@ trait CarrierAccounts
     }
 
     /**
-     * @see https://shipengine.github.io/shipengine-openapi/#operation/disconnect_carrier
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/get_carrier_settings
      *
      * @throws Exception|GuzzleException
      */
@@ -80,7 +80,7 @@ trait CarrierAccounts
     }
 
     /**
-     * @see https://shipengine.github.io/shipengine-openapi/#operation/disconnect_carrier
+     * @see https://shipengine.github.io/shipengine-openapi/#operation/update_carrier_settings
      *
      * @throws Exception|GuzzleException
      */

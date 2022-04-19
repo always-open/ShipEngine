@@ -87,7 +87,7 @@ trait PackageTypes
         string $packageTypeId,
         array $payload,
         array|ShipEngineConfig|null $config = null,
-    ): array|string {
+    ): array|string|null {
         return ShipEngineClient::put(
             "packages/$packageTypeId",
             $config,
@@ -103,7 +103,7 @@ trait PackageTypes
     public function deleteCustomPackageTypeById(
         string $packageTypeId,
         array|ShipEngineConfig|null $config = null,
-    ): array|string {
+    ): array|string|null {
         return ShipEngineClient::delete(
             "packages/$packageTypeId",
             $config,
