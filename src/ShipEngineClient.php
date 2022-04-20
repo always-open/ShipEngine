@@ -167,6 +167,7 @@ class ShipEngineClient
         $versioned_path = self::buildVersionedUrlPath($path);
 
         $encoded_body = json_encode($body, JSON_UNESCAPED_SLASHES);
+
         $request = new Request(
             $method,
             $versioned_path,
@@ -179,7 +180,7 @@ class ShipEngineClient
         $requestLog->path = parse_url($versioned_path, PHP_URL_PATH);
         $requestLog->params = parse_url($versioned_path, PHP_URL_QUERY);
         $requestLog->http_method = $method;
-        $requestLog->body = $encoded_body;
+        $requestLog->body = $encoded_body ?: null;
 
         try {
             $response = $client->send(
