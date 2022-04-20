@@ -14,6 +14,8 @@ class RequestLog extends Model
         'response' => 'json',
     ];
 
+    protected $dateFormat = 'Y-m-d H:i:s.u';
+
     public function getTable()
     {
         return config('shipengine.request_log_table_name');

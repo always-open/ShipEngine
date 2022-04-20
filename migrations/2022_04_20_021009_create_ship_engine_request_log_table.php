@@ -15,6 +15,7 @@ class CreateShipEngineRequestLogTable extends Migration
                 ->index();
             // What parameters were passed in (e.g. carrier_code=ups_ground)
             $table->string('params')
+                ->nullable()
                 ->fulltext();
             // HTTP method (e.g. POST/PUT/DELETE)
             $table->string('http_method', 10)
@@ -29,6 +30,7 @@ class CreateShipEngineRequestLogTable extends Migration
             // The entire JSON encoded responses
             $table->json('response')
                 ->nullable();
+            // Internal exceptions that occurred during the request
             $table->string('exception')
                 ->nullable();
             // When the request was resolved to the millisecond
