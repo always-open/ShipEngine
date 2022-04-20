@@ -33,4 +33,5 @@ return [
     ],
     'timeout' => 'PT10S',
     'request_log_table_name' => env('SHIP_ENGINE_REQUEST_LOG_TABLE_NAME', 'ship_engine_request_logs'),
+    'track_requests' => env('SHIP_ENGINE_TRACK_REQUESTS', true),
 ];

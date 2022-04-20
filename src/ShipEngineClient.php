@@ -187,8 +187,10 @@ class ShipEngineClient
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
         } catch (ClientException $err) {
-            $requestLog->exception = substr($err->getMessage(), 0, 255);
-            $requestLog->save();
+            if (config('shipengine.track_requests')) {
+                $requestLog->exception = substr($err->getMessage(), 0, 255);
+                $requestLog->save();
+            }
 
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
@@ -202,7 +204,10 @@ class ShipEngineClient
 
         $requestLog->response_code = $response->getStatusCode();
         $requestLog->response = json_decode((string)$response->getBody(), true);
-        $requestLog->save();
+
+        if (config('shipengine.track_requests')) {
+            $requestLog->save();
+        }
 
         return self::handleResponse($requestLog->response, $requestLog->response_code);
     }
