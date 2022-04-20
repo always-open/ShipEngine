@@ -16,6 +16,6 @@ class RequestLog extends Model
 
     public function getTable()
     {
-        config('shipengine.request_log_table_name');
+        return config('shipengine.request_log_table_name');
     }
 }
