@@ -32,4 +32,5 @@ return [
         'page_size' => env('SHIP_ENGINE_RESPONSE_PAGE_SIZE', 50),
     ],
     'timeout' => 'PT10S',
+    'request_log_table_name' => env('SHIP_ENGINE_REQUEST_LOG_TABLE_NAME', 'ship_engine_request_logs'),
 ];
