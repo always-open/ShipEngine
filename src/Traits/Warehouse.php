@@ -18,12 +18,12 @@ trait Warehouse
      * @throws GuzzleException|UnknownProperties
      */
     public function listWarehouse(
-        array|ShipEngineConfig $config = null,
+        array|ShipEngineConfig|null $config = null,
     ) : array {
         return $this->retrieveList(
             'warehouses',
             [],
-            $config,
+            $this->config->merge($config),
             'warehouses',
             WarehouseDTO::class,
         );
@@ -38,7 +38,7 @@ trait Warehouse
         string $name,
         array $origin_address,
         array $return_address = [],
-        array|ShipEngineConfig $config = null,
+        array|ShipEngineConfig|null $config = null,
     ) : array|WarehouseDTO {
         $config = $this->config->merge($config);
         $payload = [
@@ -69,7 +69,7 @@ trait Warehouse
      */
     public function getWarehouseById(
         string $warehouse_id,
-        array|ShipEngineConfig $config = null,
+        array|ShipEngineConfig|null $config = null,
     ) : array|WarehouseDTO {
         $config = $this->config->merge($config);
 
@@ -95,7 +95,7 @@ trait Warehouse
         string $name,
         array $origin_address,
         array $return_address = [],
-        array|ShipEngineConfig $config = null,
+        array|ShipEngineConfig|null $config = null,
     ) : array|null {
         $payload = [
             'name' => $name,
@@ -119,7 +119,7 @@ trait Warehouse
      */
     public function deleteWarehouseById(
         string $warehouse_id,
-        array|ShipEngineConfig $config = null,
+        array|ShipEngineConfig|null $config = null,
     ) : array|null {
         return ShipEngineClient::delete(
             "warehouses/{$warehouse_id}",

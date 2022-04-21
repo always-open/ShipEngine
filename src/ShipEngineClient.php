@@ -4,6 +4,7 @@ namespace BluefynInternational\ShipEngine;
 
 use BluefynInternational\ShipEngine\Message\RateLimitExceededException;
 use BluefynInternational\ShipEngine\Message\ShipEngineException;
+use BluefynInternational\ShipEngine\Models\RequestLog;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -28,7 +29,7 @@ class ShipEngineClient
                 . http_build_query($params);
         }
 
-        return self::sendRequestWithRetries('GET', $path, $params, $config);
+        return self::sendRequestWithRetries('GET', $path, [], $config);
     }
 
     /**
@@ -36,14 +37,14 @@ class ShipEngineClient
      *
      * @param string $path
      * @param ShipEngineConfig $config
-     * @param array|null $params
+     * @param array|null $body
      *
      * @return array|null
      * @throws GuzzleException
      */
-    public static function post(string $path, ShipEngineConfig $config, array $params = null): array|null
+    public static function post(string $path, ShipEngineConfig $config, array $body = null): array|null
     {
-        return self::sendRequestWithRetries('POST', $path, $params, $config);
+        return self::sendRequestWithRetries('POST', $path, $body, $config);
     }
 
     /**
@@ -51,14 +52,14 @@ class ShipEngineClient
      *
      * @param string $path
      * @param ShipEngineConfig $config
-     * @param array|null $params
+     * @param array|null $body
      *
      * @return array|null
      * @throws GuzzleException
      */
-    public static function patch(string $path, ShipEngineConfig $config, array $params = null): array|null
+    public static function patch(string $path, ShipEngineConfig $config, array $body = null): array|null
     {
-        return self::sendRequestWithRetries('PATCH', $path, $params, $config);
+        return self::sendRequestWithRetries('PATCH', $path, $body, $config);
     }
 
     /**
@@ -66,14 +67,14 @@ class ShipEngineClient
      *
      * @param string $path
      * @param ShipEngineConfig $config
-     * @param array|null $params
+     * @param array|null $body
      *
      * @return array|null
      * @throws GuzzleException
      */
-    public static function put(string $path, ShipEngineConfig $config, array $params = null): array|null
+    public static function put(string $path, ShipEngineConfig $config, array $body = null): array|null
     {
-        return self::sendRequestWithRetries('PUT', $path, $params, $config);
+        return self::sendRequestWithRetries('PUT', $path, $body, $config);
     }
 
     /**
@@ -95,7 +96,7 @@ class ShipEngineClient
      *
      * @param string $method
      * @param string $path
-     * @param array|null $params
+     * @param array|null $body
      * @param ShipEngineConfig $config
      *
      * @return array|null
@@ -105,7 +106,7 @@ class ShipEngineClient
     private static function sendRequestWithRetries(
         string $method,
         string $path,
-        ?array $params,
+        ?array $body,
         ShipEngineConfig $config
     ): array|null {
         $response = [];
@@ -113,7 +114,7 @@ class ShipEngineClient
 
         do {
             try {
-                $response = self::sendRequest($method, $path, $params, $config);
+                $response = self::sendRequest($method, $path, $body, $config);
             } catch (\RuntimeException $err) {
                 if ($retry < $config->retries &&
                     $err instanceof RateLimitExceededException &&
@@ -137,7 +138,7 @@ class ShipEngineClient
      *
      * @param string $method
      * @param string $path
-     * @param array|null $params
+     * @param array|null $body
      * @param ShipEngineConfig $config
      *
      * @return array|null
@@ -147,7 +148,7 @@ class ShipEngineClient
     private static function sendRequest(
         string $method,
         string $path,
-        ?array $params,
+        ?array $body,
         ShipEngineConfig $config
     ): array|null {
         $requestHeaders = [
@@ -158,17 +159,23 @@ class ShipEngineClient
         ];
 
         $client = new Client([
-                'base_uri' => $config->baseUrl,
-                'timeout' => $config->timeout,
-                'max_retry_attempts' => $config->retries,
-            ]);
+            'base_uri' => $config->baseUrl,
+            'timeout' => $config->timeout,
+            'max_retry_attempts' => $config->retries,
+        ]);
+
+        $versioned_path = self::buildVersionedUrlPath($path);
+
+        $encoded_body = json_encode($body, JSON_UNESCAPED_SLASHES);
 
         $request = new Request(
             $method,
-            self::buildVersionedUrlPath($path),
+            $versioned_path,
             $requestHeaders,
-            json_encode($params, JSON_UNESCAPED_SLASHES),
+            $encoded_body,
         );
+
+        $requestLog = RequestLog::makeFromGuzzle($request);
 
         try {
             $response = $client->send(
@@ -176,6 +183,11 @@ class ShipEngineClient
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
         } catch (ClientException $err) {
+            if (config('shipengine.track_requests')) {
+                $requestLog->exception = substr($err->getMessage(), 0, 255);
+                $requestLog->save();
+            }
+
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
                 $err->getMessage(),
@@ -186,7 +198,14 @@ class ShipEngineClient
             );
         }
 
-        return self::handleResponse(json_decode((string)$response->getBody(), true), $response->getStatusCode());
+        $requestLog->response_code = $response->getStatusCode();
+        $requestLog->response = json_decode((string)$response->getBody(), true);
+
+        if (config('shipengine.track_requests')) {
+            $requestLog->save();
+        }
+
+        return self::handleResponse($requestLog->response, $requestLog->response_code);
     }
 
     private static function buildVersionedUrlPath(string $path) : string

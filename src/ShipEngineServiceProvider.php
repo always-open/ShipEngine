@@ -12,5 +12,7 @@ class ShipEngineServiceProvider extends PackageServiceProvider
         $package
             ->name('shipengine')
             ->hasConfigFile();
+
+        $this->loadMigrationsFrom(__DIR__ . '/../migrations');
     }
 }

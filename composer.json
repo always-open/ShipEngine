@@ -19,6 +19,7 @@
     ],
     "require": {
         "php": "^8.0|^8.1",
+        "always-open/laravel-request-logger": "^0.1.0",
         "guzzlehttp/guzzle": "^7.4",
         "illuminate/contracts": "^8.73",
         "illuminate/support": "^8.77",
