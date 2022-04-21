@@ -2,7 +2,7 @@
 
 namespace BluefynInternational\ShipEngine\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use AlwaysOpen\RequestLogger\Models\RequestLogBaseModel;
 
 /**
  * BluefynInternational\ShipEngine\Models\RequestLog
@@ -16,18 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null          $exception
  * @property \Carbon\Carbon|null  $occurred_at
  */
-class RequestLog extends Model
+class RequestLog extends RequestLogBaseModel
 {
-    protected $casts = [
-        'occurred_at' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'body' => 'json',
-        'response' => 'json',
-    ];
-
-    protected $dateFormat = 'Y-m-d H:i:s.u';
-
     public function getTable()
     {
         return config('shipengine.request_log_table_name');

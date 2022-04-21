@@ -175,12 +175,7 @@ class ShipEngineClient
             $encoded_body,
         );
 
-        $requestLog = new RequestLog();
-        $requestLog->occurred_at = now();
-        $requestLog->path = parse_url($versioned_path, PHP_URL_PATH);
-        $requestLog->params = parse_url($versioned_path, PHP_URL_QUERY);
-        $requestLog->http_method = $method;
-        $requestLog->body = $encoded_body ?: null;
+        $requestLog = RequestLog::makeFromGuzzle($request);
 
         try {
             $response = $client->send(
