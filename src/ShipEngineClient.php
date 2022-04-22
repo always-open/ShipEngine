@@ -146,7 +146,7 @@ class ShipEngineClient
      *
      * @return array|null
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|ShipEngineException
      */
     private static function sendRequest(
         string $method,
