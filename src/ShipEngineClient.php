@@ -111,10 +111,12 @@ class ShipEngineClient
     ): array|null {
         $response = [];
         $retry = 0;
+        $needs_retry = true;
 
         do {
             try {
                 $response = self::sendRequest($method, $path, $body, $config);
+                $needs_retry = false;
             } catch (\RuntimeException $err) {
                 if ($retry < $config->retries &&
                     $err instanceof RateLimitExceededException &&
@@ -127,7 +129,7 @@ class ShipEngineClient
                     throw $err;
                 }
             }
-        } while (++$retry <= $config->retries);
+        } while ($needs_retry && ++$retry <= $config->retries);
 
         return $response;
     }
