@@ -5,11 +5,12 @@ namespace BluefynInternational\ShipEngine;
 use BluefynInternational\ShipEngine\Message\RateLimitExceededException;
 use BluefynInternational\ShipEngine\Message\ShipEngineException;
 use BluefynInternational\ShipEngine\Models\RequestLog;
+use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Response;
+use Throwable;
 
 class ShipEngineClient
 {
@@ -145,7 +146,7 @@ class ShipEngineClient
      *
      * @return array|null
      *
-     * @throws GuzzleException
+     * @throws GuzzleException|ShipEngineException
      */
     private static function sendRequest(
         string $method,
@@ -184,7 +185,7 @@ class ShipEngineClient
                 $request,
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
-        } catch (ClientException $err) {
+        } catch (Exception|Throwable  $err) {
             if (config('shipengine.track_requests')) {
                 $requestLog->exception = substr($err->getMessage(), 0, 255);
                 $requestLog->save();
