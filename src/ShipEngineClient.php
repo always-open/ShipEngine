@@ -7,7 +7,6 @@ use BluefynInternational\ShipEngine\Message\ShipEngineException;
 use BluefynInternational\ShipEngine\Models\RequestLog;
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Response;
