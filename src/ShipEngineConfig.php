@@ -21,6 +21,8 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
 
     public DateInterval $timeout;
 
+    public DateInterval $timeoutTotal;
+
     /**
      * @param array $config [apiKey:string, baseUrl:string, pageSize:int, retries:int, timeout:DateInterval|string]
      *
@@ -43,6 +45,13 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
         }
         $assert->isTimeoutValid($timeout_value);
         $this->timeout = $timeout_value;
+
+        $timeout_total_value = $config['timeout_total'] ?? new DateInterval(config('shipengine.timeout_total', 'PT40S'));
+        if (is_string($timeout_total_value)) {
+            $timeout_total_value = new DateInterval($timeout_total_value);
+        }
+        $assert->isTimeoutValid($timeout_total_value);
+        $this->timeoutTotal = $timeout_total_value;
 
         $this->asObject = boolval($config['asObject'] ?? config('shipengine.response.as_object', false));
 
