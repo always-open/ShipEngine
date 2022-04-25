@@ -163,7 +163,7 @@ class ShipEngineClient
 
         $client = new Client([
             'base_uri' => $config->baseUrl,
-            'timeout' => $config->timeout,
+            'timeout' => $config->timeoutTotal->s,
             'max_retry_attempts' => $config->retries,
         ]);
 
