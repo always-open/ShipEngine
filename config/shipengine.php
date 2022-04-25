@@ -31,7 +31,7 @@ return [
         'as_object' => env('SHIP_ENGINE_RESPONSE_AS_OBJECT', false),
         'page_size' => env('SHIP_ENGINE_RESPONSE_PAGE_SIZE', 50),
     ],
-    'timeout' => 'PT10S',
+    'timeout' => env('SHIP_ENGINE_REQUEST_TIMEOUT', 'PT10S'),
     'request_log_table_name' => env('SHIP_ENGINE_REQUEST_LOG_TABLE_NAME', 'ship_engine_request_logs'),
     'track_requests' => env('SHIP_ENGINE_TRACK_REQUESTS', true),
 ];
