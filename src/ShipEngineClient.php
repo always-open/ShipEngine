@@ -179,6 +179,9 @@ class ShipEngineClient
         );
 
         $requestLog = RequestLog::makeFromGuzzle($request);
+        if (! is_null($requestLog->body)) {
+            $requestLog->body = json_encode($requestLog->body);
+        }
 
         try {
             $response = $client->send(
