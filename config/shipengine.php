@@ -34,5 +34,6 @@ return [
     'timeout' => env('SHIP_ENGINE_REQUEST_TIMEOUT', 'PT10S'),
     'timeout_total' => env('SHIP_ENGINE_REQUEST_TIMEOUT_TOTAL', 'PT40S'),
     'request_log_table_name' => env('SHIP_ENGINE_REQUEST_LOG_TABLE_NAME', 'ship_engine_request_logs'),
+    'request_log_table_exception_length' => env('SHIP_ENGINE_REQUEST_LOG_TABLE_EXCEPTION_LENGTH', 255),
     'track_requests' => env('SHIP_ENGINE_TRACK_REQUESTS', true),
 ];
