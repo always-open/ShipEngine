@@ -5,6 +5,7 @@ namespace BluefynInternational\ShipEngine;
 use BluefynInternational\ShipEngine\Message\RateLimitExceededException;
 use BluefynInternational\ShipEngine\Message\ShipEngineException;
 use BluefynInternational\ShipEngine\Models\RequestLog;
+use DateInterval;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -195,7 +196,7 @@ class ShipEngineClient
             $requestLogResponse = json_decode((string)$response->getBody(), true);
 
             if (self::responseIsRateLimit($requestLogResponse)) {
-                throw new RateLimitExceededException();
+                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'));
             }
         } catch (Exception|Throwable  $err) {
             if (config('shipengine.track_requests')) {
@@ -293,7 +294,7 @@ class ShipEngineClient
             $nextExpire = now()->seconds(0)->addMinute();
 
             if ($count > $config->requestLimitPerMinute) {
-                throw new RateLimitExceededException();
+                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'));
             }
 
             Cache::put('shipengine.api-request.count', $count + 1, $nextExpire);
