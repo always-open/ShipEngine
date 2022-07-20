@@ -17,6 +17,8 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
 
     public int $retries;
 
+    public int $requestLimitPerMinute;
+
     public bool $asObject = false;
 
     public DateInterval $timeout;
@@ -38,6 +40,11 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
         $retries = $config['retries'] ?? config('shipengine.retries', 1);
         $assert->isRetriesValid($retries);
         $this->retries = $retries;
+
+        $requestLimitPerMinute = $config['request_limit_per_minute']
+            ?? config('shipengine.request_limit_per_minute', 200);
+        $assert->isRequestLimitPerMinuteValid($requestLimitPerMinute);
+        $this->requestLimitPerMinute = $requestLimitPerMinute;
 
         $timeout_value = $config['timeout'] ?? new DateInterval(config('shipengine.timeout', 'PT10S'));
         if (is_string($timeout_value)) {
