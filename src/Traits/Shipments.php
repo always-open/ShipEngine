@@ -58,10 +58,12 @@ trait Shipments
             $params,
         );
 
+        if ($this->responseIsRateLimit($response)) {
+            throw new Exception('API rate limit exceeded');
+        }
 
         if (
             ! ($response['has_errors'] ?? null)
-            && ! $this->responseIsRateLimit($response)
             && $config->asObject
         ) {
             $response['shipments'] = $this->listToObjects($response['shipments'], Shipment::class);
