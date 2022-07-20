@@ -199,7 +199,7 @@ class ShipEngineClient
             }
         } catch (Exception|Throwable  $err) {
             if (config('shipengine.track_requests')) {
-                $requestLog->exception = substr($err->getMessage(), 0, 255);
+                $requestLog->exception = substr($err->getMessage(), 0, config('shipengine.request_log_table_exception_length'));
                 $requestLog->save();
             }
 

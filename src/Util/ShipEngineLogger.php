@@ -15,7 +15,7 @@ final class ShipEngineLogger implements LoggerInterface
 {
     use LoggerTrait;
 
-    public function log($level, $message, array $context = [])
+    public function log(mixed $level, string|\Stringable $message, array $context = []): void
     {
         $message = (string)$message;
 
