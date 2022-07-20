@@ -58,7 +58,12 @@ trait Shipments
             $params,
         );
 
-        if (! $response['has_errors'] && $config->asObject) {
+
+        if (
+            ! ($response['has_errors'] ?? null)
+            && ! $this->responseIsRateLimit($response)
+            && $config->asObject
+        ) {
             $response['shipments'] = $this->listToObjects($response['shipments'], Shipment::class);
         }
 

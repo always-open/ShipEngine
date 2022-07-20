@@ -38,4 +38,9 @@ trait BaseCalls
 
         return $response;
     }
+
+    protected function responseIsRateLimit(array $response) : bool
+    {
+        return 'API rate limit exceeded' === ($response['message'] ?? null);
+    }
 }
