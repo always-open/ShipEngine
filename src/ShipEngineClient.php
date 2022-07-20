@@ -188,6 +188,10 @@ class ShipEngineClient
                 $request,
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
+
+            if ('API rate limit exceeded' === ($response['message'] ?? null)) {
+                throw new Exception($response['message']);
+            }
         } catch (Exception|Throwable  $err) {
             if (config('shipengine.track_requests')) {
                 $requestLog->exception = substr($err->getMessage(), 0, 255);
@@ -268,5 +272,10 @@ class ShipEngineClient
         $php_version = 'PHP/' . phpversion();
 
         return $sdk_version . ' ' . $os_kernel . ' ' . $php_version;
+    }
+
+    private static function responseIsRateLimit(array $response) : bool
+    {
+        return 'API rate limit exceeded' === ($response['message'] ?? null);
     }
 }
