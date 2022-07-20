@@ -27,7 +27,6 @@ final class RateLimitExceededException extends ShipEngineException
      * @param string|null $requestId
      */
     public function __construct(
-        DateInterval $retryAfter,
         string|null $source = null,
         string|null $requestId = null
     ) {

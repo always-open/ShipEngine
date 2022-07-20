@@ -60,4 +60,17 @@ final class Assert
             );
         }
     }
+
+    public function isRequestLimitPerMinuteValid(int $requestsPerMinute) : void
+    {
+        if ($requestsPerMinute < 0) {
+            throw new ValidationException(
+                'Requests limit per minute must be zero or greater.',
+                null,
+                'shipengine',
+                'validation',
+                'invalid_field_value'
+            );
+        }
+    }
 }
