@@ -189,7 +189,7 @@ class ShipEngineClient
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
 
-            if ('API rate limit exceeded' === ($response['message'] ?? null)) {
+            if (self::responseIsRateLimit($response)) {
                 throw new Exception($response['message']);
             }
         } catch (Exception|Throwable  $err) {
