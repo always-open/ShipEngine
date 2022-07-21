@@ -5,11 +5,13 @@ namespace BluefynInternational\ShipEngine;
 use BluefynInternational\ShipEngine\Message\RateLimitExceededException;
 use BluefynInternational\ShipEngine\Message\ShipEngineException;
 use BluefynInternational\ShipEngine\Models\RequestLog;
+use DateInterval;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Throwable;
 
 class ShipEngineClient
@@ -184,10 +186,18 @@ class ShipEngineClient
         }
 
         try {
+            self::incrementRequestCount($config);
+
             $response = $client->send(
                 $request,
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
             );
+
+            $requestLogResponse = json_decode((string)$response->getBody(), true);
+
+            if (self::responseIsRateLimit($requestLogResponse)) {
+                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'));
+            }
         } catch (Exception|Throwable  $err) {
             if (config('shipengine.track_requests')) {
                 $requestLog->exception = substr($err->getMessage(), 0, config('shipengine.request_log_table_exception_length'));
@@ -205,7 +215,7 @@ class ShipEngineClient
         }
 
         $requestLog->response_code = $response->getStatusCode();
-        $requestLog->response = json_decode((string)$response->getBody(), true);
+        $requestLog->response = $requestLogResponse;
 
         if (config('shipengine.track_requests')) {
             $requestLog->save();
@@ -268,5 +278,28 @@ class ShipEngineClient
         $php_version = 'PHP/' . phpversion();
 
         return $sdk_version . ' ' . $os_kernel . ' ' . $php_version;
+    }
+
+    private static function responseIsRateLimit(array $response) : bool
+    {
+        return 'API rate limit exceeded' === ($response['message'] ?? null);
+    }
+
+    private static function incrementRequestCount(ShipEngineConfig $config) : void
+    {
+        $lock = tap(Cache::lock('shipengine.api-request.lock', 10))->block(10);
+
+        try {
+            $count = Cache::get('shipengine.api-request.count', 0);
+            $nextExpire = now()->seconds(0)->addMinute();
+
+            if ($count > $config->requestLimitPerMinute) {
+                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'));
+            }
+
+            Cache::put('shipengine.api-request.count', $count + 1, $nextExpire);
+        } finally {
+            $lock->release();
+        }
     }
 }
