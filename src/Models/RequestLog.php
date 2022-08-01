@@ -3,6 +3,7 @@
 namespace BluefynInternational\ShipEngine\Models;
 
 use AlwaysOpen\RequestLogger\Models\RequestLogBaseModel;
+use BluefynInternational\ShipEngine\Observers\RequestLogObserver;
 
 /**
  * BluefynInternational\ShipEngine\Models\RequestLog
@@ -18,6 +19,12 @@ use AlwaysOpen\RequestLogger\Models\RequestLogBaseModel;
  */
 class RequestLog extends RequestLogBaseModel
 {
+    protected static function boot()
+    {
+        parent::boot();
+        parent::observe(RequestLogObserver::class);
+    }
+
     public function getTable()
     {
         return config('shipengine.request_log_table_name');
