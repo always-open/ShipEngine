@@ -186,6 +186,7 @@ class ShipEngineClient
         }
 
         try {
+            $response = null;
             self::incrementRequestCount($config);
 
             $response = $client->send(
@@ -200,6 +201,8 @@ class ShipEngineClient
             }
         } catch (Exception|Throwable  $err) {
             if (config('shipengine.track_requests')) {
+                $requestLog->response_code = $response?->getStatusCode();
+                $requestLog->response = $requestLogResponse ?? null;
                 $requestLog->exception = substr($err->getMessage(), 0, config('shipengine.request_log_table_exception_length'));
                 $requestLog->save();
             }
@@ -294,7 +297,7 @@ class ShipEngineClient
             $nextExpire = now()->seconds(0)->addMinute();
 
             if ($count > $config->requestLimitPerMinute) {
-                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'));
+                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'), message: 'Internal conifg API rate limit exceeded.');
             }
 
             Cache::put('shipengine.api-request.count', $count + 1, $nextExpire);
