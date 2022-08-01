@@ -6,8 +6,8 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class PaginationLinks extends DataTransferObject
 {
-    public FormDownload $first;
-    public FormDownload $last;
-    public FormDownload $prev;
-    public FormDownload $next;
+    public FormDownload|null $first;
+    public FormDownload|null $last;
+    public FormDownload|null $prev;
+    public FormDownload|null $next;
 }
