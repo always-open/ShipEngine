@@ -297,7 +297,7 @@ class ShipEngineClient
             $nextExpire = now()->seconds(0)->addMinute();
 
             if ($count > $config->requestLimitPerMinute) {
-                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'), message: 'Internal conifg API rate limit exceeded.');
+                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'), message: 'Internal config API rate limit of ' . $config->requestLimitPerMinute . ' exceeded.');
             }
 
             Cache::put('shipengine.api-request.count', $count + 1, $nextExpire);
