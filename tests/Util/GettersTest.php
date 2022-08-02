@@ -1,11 +1,11 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\Util;
+namespace AlwaysOpen\ShipEngine\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \BluefynInternational\ShipEngine\Util\Getters
+ * @covers \AlwaysOpen\ShipEngine\Util\Getters
  */
 final class GettersTest extends TestCase
 {

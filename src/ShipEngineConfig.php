@@ -1,8 +1,8 @@
 <?php
 
-namespace BluefynInternational\ShipEngine;
+namespace AlwaysOpen\ShipEngine;
 
-use BluefynInternational\ShipEngine\Util\Assert;
+use AlwaysOpen\ShipEngine\Util\Assert;
 use DateInterval;
 use Exception;
 use Illuminate\Contracts\Support\Arrayable;

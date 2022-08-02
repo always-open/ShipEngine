@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Util;
+namespace AlwaysOpen\ShipEngine\Util;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
@@ -9,7 +9,7 @@ use Psr\Log\LogLevel;
 /**
  * Class ShipEngineLogger
  *
- * @package BluefynInternational\ShipEngine\Util
+ * @package AlwaysOpen\ShipEngine\Util
  */
 final class ShipEngineLogger implements LoggerInterface
 {

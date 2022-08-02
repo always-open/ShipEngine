@@ -1,12 +1,12 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Traits;
+namespace AlwaysOpen\ShipEngine\Traits;
 
-use BluefynInternational\ShipEngine\DTO\Batch;
-use BluefynInternational\ShipEngine\DTO\BatchError;
-use BluefynInternational\ShipEngine\DTO\PaginationLinks;
-use BluefynInternational\ShipEngine\ShipEngineClient;
-use BluefynInternational\ShipEngine\ShipEngineConfig;
+use AlwaysOpen\ShipEngine\DTO\Batch;
+use AlwaysOpen\ShipEngine\DTO\BatchError;
+use AlwaysOpen\ShipEngine\DTO\PaginationLinks;
+use AlwaysOpen\ShipEngine\ShipEngineClient;
+use AlwaysOpen\ShipEngine\ShipEngineConfig;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 

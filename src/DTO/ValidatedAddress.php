@@ -1,9 +1,9 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Casters\NullableArrayCaster;
-use BluefynInternational\ShipEngine\DTO\Validators\InArray;
+use AlwaysOpen\ShipEngine\DTO\Casters\NullableArrayCaster;
+use AlwaysOpen\ShipEngine\DTO\Validators\InArray;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\DataTransferObject;
 

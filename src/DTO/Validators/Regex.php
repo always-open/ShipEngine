@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO\Validators;
+namespace AlwaysOpen\ShipEngine\DTO\Validators;
 
 use Spatie\DataTransferObject\Validation\ValidationResult;
 use Spatie\DataTransferObject\Validator;

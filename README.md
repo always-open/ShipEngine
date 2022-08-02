@@ -1,10 +1,10 @@
 # ShipEngine
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/bluefyn-international/shipengine.svg?style=flat-square)](https://packagist.org/packages/bluefyn-international/shipengine)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/bluefyn-international/shipengine/run-tests?label=tests)](https://github.com/bluefyn-international/shipengine/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/bluefyn-international/shipengine/Check%20&%20fix%20styling?label=code%20style)](https://github.com/bluefyn-international/shipengine/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/bluefyn-international/shipengine.svg?style=flat-square)](https://packagist.org/packages/bluefyn-international/shipengine)
-<a href="https://codeclimate.com/github/bluefyn-international/ShipEngine/maintainability"><img src="https://api.codeclimate.com/v1/badges/6817ad06980c52a8343d/maintainability" /></a>
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/always-open/shipengine.svg?style=flat-square)](https://packagist.org/packages/always-open/shipengine)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/always-open/shipengine/run-tests?label=tests)](https://github.com/always-open/shipengine/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/always-open/shipengine/Check%20&%20fix%20styling?label=code%20style)](https://github.com/always-open/shipengine/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/always-open/shipengine.svg?style=flat-square)](https://packagist.org/packages/always-open/shipengine)
+<a href="https://codeclimate.com/github/always-open/ShipEngine/maintainability"><img src="https://api.codeclimate.com/v1/badges/6817ad06980c52a8343d/maintainability" /></a>
 
 Wrapper around ShipEngine API
 
@@ -13,7 +13,7 @@ Wrapper around ShipEngine API
 You can install the package via composer:
 
 ```bash
-composer require bluefyn-international/shipengine
+composer require always-open/shipengine
 ```
 
 You can publish the config file with:
@@ -69,10 +69,10 @@ By default, the config information is read out of the config file but can be ove
 when instantiating a new instance, which will impact all subsequent calls, or when making the call.
 ```php
 // Use default config settings from `config/shipengine.php`
-$shipengine = new BluefynInternational\ShipEngine\ShipEngine();
+$shipengine = new AlwaysOpen\ShipEngine\ShipEngine();
 // Override config which will impact all calls made with this instance
-$config = new \BluefynInternational\ShipEngine\ShipEngineConfig(['asObject' => true]);
-$custom_shipengine = new BluefynInternational\ShipEngine\ShipEngine($config);
+$config = new \AlwaysOpen\ShipEngine\ShipEngineConfig(['asObject' => true]);
+$custom_shipengine = new AlwaysOpen\ShipEngine\ShipEngine($config);
 // Override config on a single specific call
 $shipengine->listShipments(config: ['asObject' => true]);
 ```
@@ -89,7 +89,7 @@ Method names should match documentation names of API endpoints from official [Sh
 #### Example calls
 Here is a sample of how to get a listing of shipments as well as the difference between `asObject => false` and `asObject => true`.
 ```php
-$shipengine = new BluefynInternational\ShipEngine\ShipEngine();
+$shipengine = new AlwaysOpen\ShipEngine\ShipEngine();
 $shipengine->listShipments();
 //[
 //    "shipments" => [
@@ -117,7 +117,7 @@ $shipengine->listShipments();
 $shipengine->listShipments(config: ['asObject' => true]);
 // [
 //     "shipments" => [
-//       BluefynInternational\ShipEngine\DTO\Shipment {#4070
+//       AlwaysOpen\ShipEngine\DTO\Shipment {#4070
 //           +shipment_id: "se-123456789",
 //           +carrier_id: "se-123456",
 //            ...
@@ -160,7 +160,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [BluefynInternational](https://github.com/BluefynInternational)
+- [AlwaysOpen](https://github.com/AlwaysOpen)
 - [All Contributors](../../contributors)
 
 ## License

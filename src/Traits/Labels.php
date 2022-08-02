@@ -1,12 +1,12 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Traits;
+namespace AlwaysOpen\ShipEngine\Traits;
 
-use BluefynInternational\ShipEngine\DTO\Label;
-use BluefynInternational\ShipEngine\DTO\TrackingInformation;
-use BluefynInternational\ShipEngine\DTO\VoidLabel;
-use BluefynInternational\ShipEngine\ShipEngineClient;
-use BluefynInternational\ShipEngine\ShipEngineConfig;
+use AlwaysOpen\ShipEngine\DTO\Label;
+use AlwaysOpen\ShipEngine\DTO\TrackingInformation;
+use AlwaysOpen\ShipEngine\DTO\VoidLabel;
+use AlwaysOpen\ShipEngine\ShipEngineClient;
+use AlwaysOpen\ShipEngine\ShipEngineConfig;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;

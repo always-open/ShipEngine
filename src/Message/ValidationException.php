@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Message;
+namespace AlwaysOpen\ShipEngine\Message;
 
 /**
  * Class ValidationException - ValidationException - an exception thrown by the ShipEngine SDK when a given value

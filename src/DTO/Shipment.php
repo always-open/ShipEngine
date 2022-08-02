@@ -1,11 +1,11 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\InArray;
-use BluefynInternational\ShipEngine\DTO\Validators\MaxLength;
-use BluefynInternational\ShipEngine\DTO\Validators\Regex;
-use BluefynInternational\ShipEngine\Util\Constants\OrderSource;
+use AlwaysOpen\ShipEngine\DTO\Validators\InArray;
+use AlwaysOpen\ShipEngine\DTO\Validators\MaxLength;
+use AlwaysOpen\ShipEngine\DTO\Validators\Regex;
+use AlwaysOpen\ShipEngine\Util\Constants\OrderSource;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
 use Spatie\DataTransferObject\DataTransferObject;

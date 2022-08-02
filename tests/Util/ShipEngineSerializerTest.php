@@ -1,20 +1,20 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\Util;
+namespace AlwaysOpen\ShipEngine\Tests\Util;
 
-use BluefynInternational\ShipEngine\Util\ShipEngineSerializer;
+use AlwaysOpen\ShipEngine\Util\ShipEngineSerializer;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ShipEngineSerializerTest
  *
- * @covers \BluefynInternational\ShipEngine\ShipEngineConfig
- * @covers \BluefynInternational\ShipEngine\Util\Assert
- * @covers \BluefynInternational\ShipEngine\Util\ShipEngineSerializer
- * @covers \BluefynInternational\ShipEngine\ShipEngineConfig::__construct
- * @covers \BluefynInternational\ShipEngine\Util\Assert::isApiKeyValid
- * @covers \BluefynInternational\ShipEngine\Util\Assert::isTimeoutValid
- * @covers \BluefynInternational\ShipEngine\ShipEngineConfig::merge
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineConfig
+ * @covers \AlwaysOpen\ShipEngine\Util\Assert
+ * @covers \AlwaysOpen\ShipEngine\Util\ShipEngineSerializer
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineConfig::__construct
+ * @covers \AlwaysOpen\ShipEngine\Util\Assert::isApiKeyValid
+ * @covers \AlwaysOpen\ShipEngine\Util\Assert::isTimeoutValid
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineConfig::merge
  * @package Util
  */
 final class ShipEngineSerializerTest extends TestCase

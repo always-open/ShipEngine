@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Util;
+namespace AlwaysOpen\ShipEngine\Util;
 
 /**
  * Collects helper functions for Array presenting them as static methods.

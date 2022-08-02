@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
 use Spatie\DataTransferObject\DataTransferObject;
 

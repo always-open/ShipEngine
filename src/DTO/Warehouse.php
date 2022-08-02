@@ -1,8 +1,8 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\Regex;
+use AlwaysOpen\ShipEngine\DTO\Validators\Regex;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class Warehouse extends DataTransferObject

@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Util\Constants;
+namespace AlwaysOpen\ShipEngine\Util\Constants;
 
 class Label
 {

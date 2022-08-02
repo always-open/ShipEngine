@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Util;
+namespace AlwaysOpen\ShipEngine\Util;
 
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Serializer;
  * ShipEngineSerializer to deserialize JSON strings to our PHP Type objects,
  * and serialize our PHP Type objects into JSON strings.
  *
- * @package BluefynInternational\ShipEngine\Util
+ * @package AlwaysOpen\ShipEngine\Util
  */
 final class ShipEngineSerializer
 {
