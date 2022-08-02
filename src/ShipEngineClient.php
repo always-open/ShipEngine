@@ -1,10 +1,10 @@
 <?php
 
-namespace BluefynInternational\ShipEngine;
+namespace AlwaysOpen\ShipEngine;
 
-use BluefynInternational\ShipEngine\Message\RateLimitExceededException;
-use BluefynInternational\ShipEngine\Message\ShipEngineException;
-use BluefynInternational\ShipEngine\Models\RequestLog;
+use AlwaysOpen\ShipEngine\Message\RateLimitExceededException;
+use AlwaysOpen\ShipEngine\Message\ShipEngineException;
+use AlwaysOpen\ShipEngine\Models\RequestLog;
 use DateInterval;
 use Exception;
 use GuzzleHttp\Client;

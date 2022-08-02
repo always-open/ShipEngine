@@ -1,25 +1,25 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests;
+namespace AlwaysOpen\ShipEngine\Tests;
 
-use BluefynInternational\ShipEngine\ShipEngine;
+use AlwaysOpen\ShipEngine\ShipEngine;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
- * @covers \BluefynInternational\ShipEngine\ShipEngineConfig
- * @covers \BluefynInternational\ShipEngine\Util\Assert
- * @covers \BluefynInternational\ShipEngine\Util\ShipEngineSerializer
- * @covers \BluefynInternational\ShipEngine\ShipEngineConfig::__construct
- * @covers \BluefynInternational\ShipEngine\Util\Assert::isApiKeyValid
- * @covers \BluefynInternational\ShipEngine\Util\Assert::isTimeoutValid
- * @covers \BluefynInternational\ShipEngine\ShipEngineConfig::merge
- * @covers \BluefynInternational\ShipEngine\ShipEngine::__construct
- * @covers \BluefynInternational\ShipEngine\ShipEngine::listCarriers
- * @covers \BluefynInternational\ShipEngine\ShipEngineClient::deriveUserAgent
- * @covers \BluefynInternational\ShipEngine\ShipEngineClient::get
- * @covers \BluefynInternational\ShipEngine\ShipEngineClient::handleResponse
- * @covers \BluefynInternational\ShipEngine\ShipEngineClient::sendRequest
- * @covers \BluefynInternational\ShipEngine\ShipEngineClient::sendRequestWithRetries
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineConfig
+ * @covers \AlwaysOpen\ShipEngine\Util\Assert
+ * @covers \AlwaysOpen\ShipEngine\Util\ShipEngineSerializer
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineConfig::__construct
+ * @covers \AlwaysOpen\ShipEngine\Util\Assert::isApiKeyValid
+ * @covers \AlwaysOpen\ShipEngine\Util\Assert::isTimeoutValid
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineConfig::merge
+ * @covers \AlwaysOpen\ShipEngine\ShipEngine::__construct
+ * @covers \AlwaysOpen\ShipEngine\ShipEngine::listCarriers
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineClient::deriveUserAgent
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineClient::get
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineClient::handleResponse
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineClient::sendRequest
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineClient::sendRequestWithRetries
  */
 final class ShipEngineTest extends Orchestra
 {

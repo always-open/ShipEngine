@@ -1,25 +1,25 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests;
+namespace AlwaysOpen\ShipEngine\Tests;
 
-use BluefynInternational\ShipEngine\Message\ShipEngineException;
-use BluefynInternational\ShipEngine\Message\TimeoutException;
-use BluefynInternational\ShipEngine\Message\ValidationException;
-use BluefynInternational\ShipEngine\ShipEngineConfig;
+use AlwaysOpen\ShipEngine\Message\ShipEngineException;
+use AlwaysOpen\ShipEngine\Message\TimeoutException;
+use AlwaysOpen\ShipEngine\Message\ValidationException;
+use AlwaysOpen\ShipEngine\ShipEngineConfig;
 use DateInterval;
 use Mockery;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 /**
- * @covers \BluefynInternational\ShipEngine\ShipEngineConfig
- * @uses   \BluefynInternational\ShipEngine\Message\RateLimitExceededException
- * @uses   \BluefynInternational\ShipEngine\Util\Assert
- * @uses   \BluefynInternational\ShipEngine\ShipEngineConfig
- * @uses   \BluefynInternational\ShipEngine\Message\ShipEngineException
- * @uses   \BluefynInternational\ShipEngine\Message\ValidationException
- * @uses   \BluefynInternational\ShipEngine\ShipEngine
- * @uses   \BluefynInternational\ShipEngine\ShipEngineClient
- * @uses   \BluefynInternational\ShipEngine\Message\TimeoutException
+ * @covers \AlwaysOpen\ShipEngine\ShipEngineConfig
+ * @uses   \AlwaysOpen\ShipEngine\Message\RateLimitExceededException
+ * @uses   \AlwaysOpen\ShipEngine\Util\Assert
+ * @uses   \AlwaysOpen\ShipEngine\ShipEngineConfig
+ * @uses   \AlwaysOpen\ShipEngine\Message\ShipEngineException
+ * @uses   \AlwaysOpen\ShipEngine\Message\ValidationException
+ * @uses   \AlwaysOpen\ShipEngine\ShipEngine
+ * @uses   \AlwaysOpen\ShipEngine\ShipEngineClient
+ * @uses   \AlwaysOpen\ShipEngine\Message\TimeoutException
  */
 final class ShipEngineConfigTest extends Orchestra
 {

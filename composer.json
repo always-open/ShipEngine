@@ -1,19 +1,19 @@
 {
-    "name": "bluefyn-international/shipengine",
+    "name": "always-open/shipengine",
     "description": "Wrapper around ShipEngine API",
     "keywords": [
-        "Bluefyn International",
-        "BluefynInternational",
-        "Bluefyn-International",
+        "Always Open",
+        "AlwaysOpen",
+        "Always-Open",
         "laravel",
         "shipengine"
     ],
-    "homepage": "https://github.com/bluefyn-international/shipengine",
+    "homepage": "https://github.com/always-open/shipengine",
     "license": "MIT",
     "authors": [
         {
-            "name": "BluefynInternational",
-            "email": "quentin.schmick@nathanjames.com",
+            "name": "Always Open",
+            "email": "qschmick@gmail.com",
             "role": "Developer"
         }
     ],
@@ -43,13 +43,13 @@
     },
     "autoload": {
         "psr-4": {
-            "BluefynInternational\\ShipEngine\\": "src",
-            "BluefynInternational\\ShipEngine\\Database\\Factories\\": "database/factories"
+            "AlwaysOpen\\ShipEngine\\": "src",
+            "AlwaysOpen\\ShipEngine\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BluefynInternational\\ShipEngine\\Tests\\": "tests"
+            "AlwaysOpen\\ShipEngine\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -67,10 +67,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "BluefynInternational\\ShipEngine\\ShipEngineServiceProvider"
+                "AlwaysOpen\\ShipEngine\\ShipEngineServiceProvider"
             ],
             "aliases": {
-                "ShipEngine": "BluefynInternational\\ShipEngine\\Facades\\ShipEngine"
+                "ShipEngine": "AlwaysOpen\\ShipEngine\\Facades\\ShipEngine"
             }
         }
     },

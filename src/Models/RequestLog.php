@@ -1,11 +1,11 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Models;
+namespace AlwaysOpen\ShipEngine\Models;
 
 use AlwaysOpen\RequestLogger\Models\RequestLogBaseModel;
 
 /**
- * BluefynInternational\ShipEngine\Models\RequestLog
+ * AlwaysOpen\ShipEngine\Models\RequestLog
  *
  * @property string|null          $path
  * @property string|null          $params

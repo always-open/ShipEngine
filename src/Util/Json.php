@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Util;
+namespace AlwaysOpen\ShipEngine\Util;
 
 /**
  * Helper functions for JSON processing.

@@ -1,8 +1,8 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\MinLength;
+use AlwaysOpen\ShipEngine\DTO\Validators\MinLength;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class Tag extends DataTransferObject

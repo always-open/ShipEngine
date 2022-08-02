@@ -1,8 +1,8 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\GreaterThanOrEquals;
+use AlwaysOpen\ShipEngine\DTO\Validators\GreaterThanOrEquals;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class ParsedAddressEntity extends DataTransferObject

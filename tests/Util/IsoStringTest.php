@@ -1,13 +1,13 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\Util;
+namespace AlwaysOpen\ShipEngine\Tests\Util;
 
-use BluefynInternational\ShipEngine\Util\IsoString;
+use AlwaysOpen\ShipEngine\Util\IsoString;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \BluefynInternational\ShipEngine\Util\IsoString
+ * @covers \AlwaysOpen\ShipEngine\Util\IsoString
  */
 final class IsoStringTest extends TestCase
 {

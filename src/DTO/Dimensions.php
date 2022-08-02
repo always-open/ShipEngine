@@ -1,9 +1,9 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\GreaterThanOrEquals;
-use BluefynInternational\ShipEngine\DTO\Validators\InArray;
+use AlwaysOpen\ShipEngine\DTO\Validators\GreaterThanOrEquals;
+use AlwaysOpen\ShipEngine\DTO\Validators\InArray;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class Dimensions extends DataTransferObject

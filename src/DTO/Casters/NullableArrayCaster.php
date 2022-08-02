@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO\Casters;
+namespace AlwaysOpen\ShipEngine\DTO\Casters;
 
 use ArrayAccess;
 use LogicException;

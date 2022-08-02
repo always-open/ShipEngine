@@ -1,15 +1,15 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\Util;
+namespace AlwaysOpen\ShipEngine\Tests\Util;
 
-use BluefynInternational\ShipEngine\Util\ShipEngineLogger;
+use AlwaysOpen\ShipEngine\Util\ShipEngineLogger;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 /**
  * Class ShipEngineLoggerTest
  *
- * @covers \BluefynInternational\ShipEngine\Util\ShipEngineLogger
+ * @covers \AlwaysOpen\ShipEngine\Util\ShipEngineLogger
  * @package Util
  */
 final class ShipEngineLoggerTest extends TestCase

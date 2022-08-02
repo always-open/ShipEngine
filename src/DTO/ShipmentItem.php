@@ -1,10 +1,10 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\GreaterThanOrEquals;
-use BluefynInternational\ShipEngine\DTO\Validators\InArray;
-use BluefynInternational\ShipEngine\Util\Constants\OrderSource;
+use AlwaysOpen\ShipEngine\DTO\Validators\GreaterThanOrEquals;
+use AlwaysOpen\ShipEngine\DTO\Validators\InArray;
+use AlwaysOpen\ShipEngine\Util\Constants\OrderSource;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class ShipmentItem extends DataTransferObject

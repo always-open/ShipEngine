@@ -1,8 +1,8 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\Util;
+namespace AlwaysOpen\ShipEngine\Tests\Util;
 
-use BluefynInternational\ShipEngine\Util\Getters;
+use AlwaysOpen\ShipEngine\Util\Getters;
 
 final class Foo implements \JsonSerializable
 {

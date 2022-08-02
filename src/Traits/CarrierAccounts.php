@@ -1,12 +1,12 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Traits;
+namespace AlwaysOpen\ShipEngine\Traits;
 
-use BluefynInternational\ShipEngine\DTO\DhlExpressSettings;
-use BluefynInternational\ShipEngine\DTO\FedexSettings;
-use BluefynInternational\ShipEngine\DTO\UpsSettings;
-use BluefynInternational\ShipEngine\ShipEngineClient;
-use BluefynInternational\ShipEngine\ShipEngineConfig;
+use AlwaysOpen\ShipEngine\DTO\DhlExpressSettings;
+use AlwaysOpen\ShipEngine\DTO\FedexSettings;
+use AlwaysOpen\ShipEngine\DTO\UpsSettings;
+use AlwaysOpen\ShipEngine\ShipEngineClient;
+use AlwaysOpen\ShipEngine\ShipEngineConfig;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 

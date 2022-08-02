@@ -1,10 +1,10 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Traits;
+namespace AlwaysOpen\ShipEngine\Traits;
 
-use BluefynInternational\ShipEngine\DTO\Warehouse as WarehouseDTO;
-use BluefynInternational\ShipEngine\ShipEngineClient;
-use BluefynInternational\ShipEngine\ShipEngineConfig;
+use AlwaysOpen\ShipEngine\DTO\Warehouse as WarehouseDTO;
+use AlwaysOpen\ShipEngine\ShipEngineClient;
+use AlwaysOpen\ShipEngine\ShipEngineConfig;
 use GuzzleHttp\Exception\GuzzleException;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 

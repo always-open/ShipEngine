@@ -1,10 +1,10 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\DTO;
+namespace AlwaysOpen\ShipEngine\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Validators\InArray;
-use BluefynInternational\ShipEngine\DTO\Validators\MinLength;
-use BluefynInternational\ShipEngine\DTO\Validators\Regex;
+use AlwaysOpen\ShipEngine\DTO\Validators\InArray;
+use AlwaysOpen\ShipEngine\DTO\Validators\MinLength;
+use AlwaysOpen\ShipEngine\DTO\Validators\Regex;
 use Spatie\DataTransferObject\Attributes\CastWith;
 use Spatie\DataTransferObject\Casters\ArrayCaster;
 use Spatie\DataTransferObject\DataTransferObject;
@@ -34,7 +34,7 @@ class Label extends DataTransferObject
     public string $package_code;
     public bool $voided;
     public string|null $voided_at;
-    #[InArray(\BluefynInternational\ShipEngine\Util\Constants\Label::ALL_FORMATS)]
+    #[InArray(\AlwaysOpen\ShipEngine\Util\Constants\Label::ALL_FORMATS)]
     public string $label_format;
     #[InArray(['label', 'qr_code'])]
     public string $display_scheme;

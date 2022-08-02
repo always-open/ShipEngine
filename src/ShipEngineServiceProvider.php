@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine;
+namespace AlwaysOpen\ShipEngine;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

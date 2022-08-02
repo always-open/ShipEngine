@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Message;
+namespace AlwaysOpen\ShipEngine\Message;
 
 /**
  * Class TimeoutException - The exception used by this SDK when the configured/default client timeout is reached.

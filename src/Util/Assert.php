@@ -1,8 +1,8 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Util;
+namespace AlwaysOpen\ShipEngine\Util;
 
-use BluefynInternational\ShipEngine\Message\ValidationException;
+use AlwaysOpen\ShipEngine\Message\ValidationException;
 use DateInterval;
 
 final class Assert

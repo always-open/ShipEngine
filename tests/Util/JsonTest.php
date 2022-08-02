@@ -1,15 +1,15 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\Util;
+namespace AlwaysOpen\ShipEngine\Tests\Util;
 
-use BluefynInternational\ShipEngine\Util\Json;
+use AlwaysOpen\ShipEngine\Util\Json;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \BluefynInternational\ShipEngine\Util\JSON::encode
- * @covers \BluefynInternational\ShipEngine\Util\JSON::encodeArray
- * @covers \BluefynInternational\ShipEngine\Util\JSON::jsonize
+ * @covers \AlwaysOpen\ShipEngine\Util\JSON::encode
+ * @covers \AlwaysOpen\ShipEngine\Util\JSON::encodeArray
+ * @covers \AlwaysOpen\ShipEngine\Util\JSON::jsonize
  */
 final class JsonTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Message;
+namespace AlwaysOpen\ShipEngine\Message;
 
 use DateInterval;
 

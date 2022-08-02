@@ -1,12 +1,12 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\DTO;
+namespace AlwaysOpen\ShipEngine\Tests\DTO;
 
-use BluefynInternational\ShipEngine\DTO\Shipment;
+use AlwaysOpen\ShipEngine\DTO\Shipment;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \BluefynInternational\ShipEngine\DTO\Shipment
+ * @covers \AlwaysOpen\ShipEngine\DTO\Shipment
  */
 class ShipmentTest extends TestCase
 {

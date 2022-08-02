@@ -1,14 +1,14 @@
 <?php
 
-namespace BluefynInternational\ShipEngine\Tests\Util;
+namespace AlwaysOpen\ShipEngine\Tests\Util;
 
-use BluefynInternational\ShipEngine\Util\Arr;
+use AlwaysOpen\ShipEngine\Util\Arr;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \BluefynInternational\ShipEngine\Util\Arr::flatten
- * @covers \BluefynInternational\ShipEngine\Util\Arr::subArray
+ * @covers \AlwaysOpen\ShipEngine\Util\Arr::flatten
+ * @covers \AlwaysOpen\ShipEngine\Util\Arr::subArray
  */
 final class ArrTest extends TestCase
 {
