@@ -189,6 +189,7 @@ class ShipEngineClient
             $response = null;
             self::incrementRequestCount($config);
 
+            $requestLog->occurred_at = now();
             $response = $client->send(
                 $request,
                 ['timeout' => $config->timeout->s, 'http_errors' => false]
@@ -199,13 +200,12 @@ class ShipEngineClient
             if (self::responseIsRateLimit($requestLogResponse)) {
                 throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'));
             }
+        } catch (RateLimitExceededException $err) {
+            $requestLog->exception = substr($err->getMessage(), 0, config('shipengine.request_log_table_exception_length'));
+
+            throw $err;
         } catch (Exception|Throwable  $err) {
-            if (config('shipengine.track_requests')) {
-                $requestLog->response_code = $response?->getStatusCode();
-                $requestLog->response = $requestLogResponse ?? null;
-                $requestLog->exception = substr($err->getMessage(), 0, config('shipengine.request_log_table_exception_length'));
-                $requestLog->save();
-            }
+            $requestLog->exception = substr($err->getMessage(), 0, config('shipengine.request_log_table_exception_length'));
 
             throw new ShipEngineException(
                 "An unknown error occurred while calling the ShipEngine $method API:\n" .
@@ -215,6 +215,12 @@ class ShipEngineClient
                 'System',
                 'Unspecified'
             );
+        } finally {
+            if (config('shipengine.track_requests')) {
+                $requestLog->response_code = $response?->getStatusCode();
+                $requestLog->response = $requestLogResponse ?? null;
+                $requestLog->save();
+            }
         }
 
         $requestLog->response_code = $response->getStatusCode();
