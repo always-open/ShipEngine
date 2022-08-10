@@ -27,6 +27,7 @@ return [
         'base'     => env('SHIP_ENGINE_ENDPOINT', 'https://api.shipengine.com/'),
     ],
     'request_limit_per_minute' => env('SHIP_ENGINE_REQUEST_LIMIT_PER_MINUTE', 200),
+    'use_local_rate_limit' => env('SHIP_ENGINE_USE_LOCAL_RATE_LIMIT', false),
     'retries'  => env('SHIP_ENGINE_RETRIES', 1),
     'response' => [
         'as_object' => env('SHIP_ENGINE_RESPONSE_AS_OBJECT', false),
