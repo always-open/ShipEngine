@@ -21,6 +21,8 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
 
     public bool $asObject = false;
 
+    public bool $enforceLocalRequestLimit = false;
+
     public DateInterval $timeout;
 
     public DateInterval $timeoutTotal;
@@ -45,6 +47,11 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
             ?? config('shipengine.request_limit_per_minute', 200);
         $assert->isRequestLimitPerMinuteValid($requestLimitPerMinute);
         $this->requestLimitPerMinute = $requestLimitPerMinute;
+
+        $this->enforceLocalRequestLimit = boolval(
+            $config['enforce_local_request_limit']
+            ?? config('shipengine.enforce_local_request_limit', false)
+        );
 
         $timeout_value = $config['timeout'] ?? new DateInterval(config('shipengine.timeout', 'PT10S'));
         if (is_string($timeout_value)) {
