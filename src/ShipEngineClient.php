@@ -296,19 +296,21 @@ class ShipEngineClient
 
     private static function incrementRequestCount(ShipEngineConfig $config) : void
     {
-        $lock = tap(Cache::lock('shipengine.api-request.lock', 10))->block(10);
+        if ($config->useLocalRateLimit) {
+            $lock = tap(Cache::lock('shipengine.api-request.lock', 10))->block(10);
 
-        try {
-            $count = Cache::get('shipengine.api-request.count', 0);
-            $nextExpire = now()->seconds(0)->addMinute();
+            try {
+                $count = Cache::get('shipengine.api-request.count', 0);
+                $nextExpire = now()->seconds(0)->addMinute();
 
-            if ($count > $config->requestLimitPerMinute) {
-                throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'), message: 'Internal config API rate limit of ' . $config->requestLimitPerMinute . ' exceeded.');
+                if ($count > $config->requestLimitPerMinute) {
+                    throw new RateLimitExceededException(retryAfter: new DateInterval('PT1S'), message: 'Internal config API rate limit of ' . $config->requestLimitPerMinute . ' exceeded.');
+                }
+
+                Cache::put('shipengine.api-request.count', $count + 1, $nextExpire);
+            } finally {
+                $lock->release();
             }
-
-            Cache::put('shipengine.api-request.count', $count + 1, $nextExpire);
-        } finally {
-            $lock->release();
         }
     }
 }

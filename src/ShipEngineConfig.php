@@ -21,6 +21,8 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
 
     public bool $asObject = false;
 
+    public bool $useLocalRateLimit = false;
+
     public DateInterval $timeout;
 
     public DateInterval $timeoutTotal;
@@ -60,6 +62,7 @@ final class ShipEngineConfig implements \JsonSerializable, Arrayable
         $assert->isTimeoutValid($timeout_total_value);
         $this->timeoutTotal = $timeout_total_value;
 
+        $this->useLocalRateLimit = boolval($config['use_local_rate_limit'] ?? config('shipengine.use_local_rate_limit', false));
         $this->asObject = boolval($config['asObject'] ?? config('shipengine.response.as_object', false));
 
         $this->baseUrl = $config['baseUrl'] ?? self::getBaseUri();
