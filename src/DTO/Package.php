@@ -9,7 +9,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class Package extends DataTransferObject
 {
-    public int|null $package_id;
+    public string|null $package_id;
     public string|null $description;
     #[Regex('/^[a-z0-9]+(_[a-z0-9]+)*$/')]
     public string $package_code;
