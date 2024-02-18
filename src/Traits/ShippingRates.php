@@ -94,7 +94,7 @@ trait ShippingRates
         array|ShipEngineConfig|null $config = null,
     ): array|ShipmentRate {
         $config = $this->config->merge($config);
-        $response = ShipEngineClient::post(
+        $response = ShipEngineClient::get(
             "rates/$rate_id",
             $config,
         );
